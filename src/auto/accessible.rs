@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use crate::Action;
+use crate::Cache;
 use crate::Collection;
 use crate::Component;
 use crate::Document;
@@ -12,6 +13,7 @@ use crate::Hypertext;
 use crate::Image;
 use crate::Role;
 use crate::Selection;
+use crate::StateSet;
 use crate::Table;
 use crate::TableCell;
 use crate::Text;
@@ -191,9 +193,9 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "get_selection_iface")]
     fn selection_iface(&self) -> Option<Selection>;
 
-    //#[doc(alias = "atspi_accessible_get_state_set")]
-    //#[doc(alias = "get_state_set")]
-    //fn state_set(&self) -> /*Ignored*/Option<StateSet>;
+    #[doc(alias = "atspi_accessible_get_state_set")]
+    #[doc(alias = "get_state_set")]
+    fn state_set(&self) -> Option<StateSet>;
 
     #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
     #[doc(alias = "atspi_accessible_get_table")]
@@ -234,8 +236,8 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "get_value_iface")]
     fn value_iface(&self) -> Option<Value>;
 
-    //#[doc(alias = "atspi_accessible_set_cache_mask")]
-    //fn set_cache_mask(&self, mask: /*Ignored*/Cache);
+    #[doc(alias = "atspi_accessible_set_cache_mask")]
+    fn set_cache_mask(&self, mask: Cache);
 
     #[doc(alias = "mode-changed")]
     fn connect_mode_changed<F: Fn(&Self, i32, &str) + 'static>(&self, detail: Option<&str>, f: F) -> SignalHandlerId;
@@ -487,9 +489,11 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn state_set(&self) -> /*Ignored*/Option<StateSet> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_state_set() }
-    //}
+    fn state_set(&self) -> Option<StateSet> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_state_set(self.as_ref().to_glib_none().0))
+        }
+    }
 
     fn table(&self) -> Option<Table> {
         unsafe {
@@ -549,9 +553,11 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn set_cache_mask(&self, mask: /*Ignored*/Cache) {
-    //    unsafe { TODO: call ffi:atspi_accessible_set_cache_mask() }
-    //}
+    fn set_cache_mask(&self, mask: Cache) {
+        unsafe {
+            ffi::atspi_accessible_set_cache_mask(self.as_ref().to_glib_none().0, mask.into_glib());
+        }
+    }
 
     fn connect_mode_changed<F: Fn(&Self, i32, &str) + 'static>(&self, detail: Option<&str>, f: F) -> SignalHandlerId {
         unsafe extern "C" fn mode_changed_trampoline<P: IsA<Accessible>, F: Fn(&P, i32, &str) + 'static>(this: *mut ffi::AtspiAccessible, arg1: libc::c_int, why: *mut libc::c_char, f: glib::ffi::gpointer) {

@@ -29,8 +29,14 @@ pub use self::hypertext::{Hypertext, NONE_HYPERTEXT};
 mod image;
 pub use self::image::{Image, NONE_IMAGE};
 
+mod match_rule;
+pub use self::match_rule::{MatchRule, NONE_MATCH_RULE};
+
 mod selection;
 pub use self::selection::{Selection, NONE_SELECTION};
+
+mod state_set;
+pub use self::state_set::{StateSet, NONE_STATE_SET};
 
 mod table;
 pub use self::table::{Table, NONE_TABLE};
@@ -44,8 +50,33 @@ pub use self::text::{Text, NONE_TEXT};
 mod value;
 pub use self::value::{Value, NONE_VALUE};
 
+mod point;
+pub use self::point::Point;
+
+mod range;
+pub use self::range::Range;
+
+mod rect;
+pub use self::rect::Rect;
+
+mod text_range;
+pub use self::text_range::TextRange;
+
 mod enums;
+pub use self::enums::CollectionMatchType;
+pub use self::enums::CollectionSortOrder;
+pub use self::enums::CollectionTreeTraversalType;
+pub use self::enums::ComponentLayer;
+pub use self::enums::CoordType;
 pub use self::enums::Role;
+pub use self::enums::ScrollType;
+pub use self::enums::StateType;
+pub use self::enums::TextBoundaryType;
+pub use self::enums::TextClipType;
+pub use self::enums::TextGranularity;
+
+mod flags;
+pub use self::flags::Cache;
 
 #[doc(hidden)]
 pub mod traits {
@@ -59,6 +90,7 @@ pub mod traits {
     pub use super::hypertext::HypertextExt;
     pub use super::image::ImageExt;
     pub use super::selection::SelectionExt;
+    pub use super::state_set::StateSetExt;
     pub use super::table::TableExt;
     pub use super::table_cell::TableCellExt;
     pub use super::text::TextExt;

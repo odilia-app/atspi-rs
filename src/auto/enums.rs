@@ -12,6 +12,501 @@ use std::fmt;
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtspiCollectionMatchType")]
+pub enum CollectionMatchType {
+    #[doc(alias = "ATSPI_Collection_MATCH_INVALID")]
+    Invalid,
+    #[doc(alias = "ATSPI_Collection_MATCH_ALL")]
+    All,
+    #[doc(alias = "ATSPI_Collection_MATCH_ANY")]
+    Any,
+    #[doc(alias = "ATSPI_Collection_MATCH_NONE")]
+    None,
+    #[doc(alias = "ATSPI_Collection_MATCH_EMPTY")]
+    Empty,
+    #[doc(alias = "ATSPI_Collection_MATCH_LAST_DEFINED")]
+    LastDefined,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for CollectionMatchType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "CollectionMatchType::{}", match *self {
+            Self::Invalid => "Invalid",
+            Self::All => "All",
+            Self::Any => "Any",
+            Self::None => "None",
+            Self::Empty => "Empty",
+            Self::LastDefined => "LastDefined",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for CollectionMatchType {
+    type GlibType = ffi::AtspiCollectionMatchType;
+
+    fn into_glib(self) -> ffi::AtspiCollectionMatchType {
+        match self {
+            Self::Invalid => ffi::ATSPI_Collection_MATCH_INVALID,
+            Self::All => ffi::ATSPI_Collection_MATCH_ALL,
+            Self::Any => ffi::ATSPI_Collection_MATCH_ANY,
+            Self::None => ffi::ATSPI_Collection_MATCH_NONE,
+            Self::Empty => ffi::ATSPI_Collection_MATCH_EMPTY,
+            Self::LastDefined => ffi::ATSPI_Collection_MATCH_LAST_DEFINED,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiCollectionMatchType> for CollectionMatchType {
+    unsafe fn from_glib(value: ffi::AtspiCollectionMatchType) -> Self {
+        match value {
+            ffi::ATSPI_Collection_MATCH_INVALID => Self::Invalid,
+            ffi::ATSPI_Collection_MATCH_ALL => Self::All,
+            ffi::ATSPI_Collection_MATCH_ANY => Self::Any,
+            ffi::ATSPI_Collection_MATCH_NONE => Self::None,
+            ffi::ATSPI_Collection_MATCH_EMPTY => Self::Empty,
+            ffi::ATSPI_Collection_MATCH_LAST_DEFINED => Self::LastDefined,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for CollectionMatchType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_collection_match_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for CollectionMatchType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for CollectionMatchType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for CollectionMatchType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiCollectionSortOrder")]
+pub enum CollectionSortOrder {
+    #[doc(alias = "ATSPI_Collection_SORT_ORDER_INVALID")]
+    Invalid,
+    #[doc(alias = "ATSPI_Collection_SORT_ORDER_CANONICAL")]
+    Canonical,
+    #[doc(alias = "ATSPI_Collection_SORT_ORDER_FLOW")]
+    Flow,
+    #[doc(alias = "ATSPI_Collection_SORT_ORDER_TAB")]
+    Tab,
+    #[doc(alias = "ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL")]
+    ReverseCanonical,
+    #[doc(alias = "ATSPI_Collection_SORT_ORDER_REVERSE_FLOW")]
+    ReverseFlow,
+    #[doc(alias = "ATSPI_Collection_SORT_ORDER_REVERSE_TAB")]
+    ReverseTab,
+    #[doc(alias = "ATSPI_Collection_SORT_ORDER_LAST_DEFINED")]
+    LastDefined,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for CollectionSortOrder {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "CollectionSortOrder::{}", match *self {
+            Self::Invalid => "Invalid",
+            Self::Canonical => "Canonical",
+            Self::Flow => "Flow",
+            Self::Tab => "Tab",
+            Self::ReverseCanonical => "ReverseCanonical",
+            Self::ReverseFlow => "ReverseFlow",
+            Self::ReverseTab => "ReverseTab",
+            Self::LastDefined => "LastDefined",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for CollectionSortOrder {
+    type GlibType = ffi::AtspiCollectionSortOrder;
+
+    fn into_glib(self) -> ffi::AtspiCollectionSortOrder {
+        match self {
+            Self::Invalid => ffi::ATSPI_Collection_SORT_ORDER_INVALID,
+            Self::Canonical => ffi::ATSPI_Collection_SORT_ORDER_CANONICAL,
+            Self::Flow => ffi::ATSPI_Collection_SORT_ORDER_FLOW,
+            Self::Tab => ffi::ATSPI_Collection_SORT_ORDER_TAB,
+            Self::ReverseCanonical => ffi::ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL,
+            Self::ReverseFlow => ffi::ATSPI_Collection_SORT_ORDER_REVERSE_FLOW,
+            Self::ReverseTab => ffi::ATSPI_Collection_SORT_ORDER_REVERSE_TAB,
+            Self::LastDefined => ffi::ATSPI_Collection_SORT_ORDER_LAST_DEFINED,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiCollectionSortOrder> for CollectionSortOrder {
+    unsafe fn from_glib(value: ffi::AtspiCollectionSortOrder) -> Self {
+        match value {
+            ffi::ATSPI_Collection_SORT_ORDER_INVALID => Self::Invalid,
+            ffi::ATSPI_Collection_SORT_ORDER_CANONICAL => Self::Canonical,
+            ffi::ATSPI_Collection_SORT_ORDER_FLOW => Self::Flow,
+            ffi::ATSPI_Collection_SORT_ORDER_TAB => Self::Tab,
+            ffi::ATSPI_Collection_SORT_ORDER_REVERSE_CANONICAL => Self::ReverseCanonical,
+            ffi::ATSPI_Collection_SORT_ORDER_REVERSE_FLOW => Self::ReverseFlow,
+            ffi::ATSPI_Collection_SORT_ORDER_REVERSE_TAB => Self::ReverseTab,
+            ffi::ATSPI_Collection_SORT_ORDER_LAST_DEFINED => Self::LastDefined,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for CollectionSortOrder {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_collection_sort_order_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for CollectionSortOrder {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for CollectionSortOrder {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for CollectionSortOrder {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiCollectionTreeTraversalType")]
+pub enum CollectionTreeTraversalType {
+    #[doc(alias = "ATSPI_Collection_TREE_RESTRICT_CHILDREN")]
+    RestrictChildren,
+    #[doc(alias = "ATSPI_Collection_TREE_RESTRICT_SIBLING")]
+    RestrictSibling,
+    #[doc(alias = "ATSPI_Collection_TREE_INORDER")]
+    Inorder,
+    #[doc(alias = "ATSPI_Collection_TREE_LAST_DEFINED")]
+    LastDefined,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for CollectionTreeTraversalType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "CollectionTreeTraversalType::{}", match *self {
+            Self::RestrictChildren => "RestrictChildren",
+            Self::RestrictSibling => "RestrictSibling",
+            Self::Inorder => "Inorder",
+            Self::LastDefined => "LastDefined",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for CollectionTreeTraversalType {
+    type GlibType = ffi::AtspiCollectionTreeTraversalType;
+
+    fn into_glib(self) -> ffi::AtspiCollectionTreeTraversalType {
+        match self {
+            Self::RestrictChildren => ffi::ATSPI_Collection_TREE_RESTRICT_CHILDREN,
+            Self::RestrictSibling => ffi::ATSPI_Collection_TREE_RESTRICT_SIBLING,
+            Self::Inorder => ffi::ATSPI_Collection_TREE_INORDER,
+            Self::LastDefined => ffi::ATSPI_Collection_TREE_LAST_DEFINED,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiCollectionTreeTraversalType> for CollectionTreeTraversalType {
+    unsafe fn from_glib(value: ffi::AtspiCollectionTreeTraversalType) -> Self {
+        match value {
+            ffi::ATSPI_Collection_TREE_RESTRICT_CHILDREN => Self::RestrictChildren,
+            ffi::ATSPI_Collection_TREE_RESTRICT_SIBLING => Self::RestrictSibling,
+            ffi::ATSPI_Collection_TREE_INORDER => Self::Inorder,
+            ffi::ATSPI_Collection_TREE_LAST_DEFINED => Self::LastDefined,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for CollectionTreeTraversalType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_collection_tree_traversal_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for CollectionTreeTraversalType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for CollectionTreeTraversalType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for CollectionTreeTraversalType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiComponentLayer")]
+pub enum ComponentLayer {
+    #[doc(alias = "ATSPI_LAYER_INVALID")]
+    Invalid,
+    #[doc(alias = "ATSPI_LAYER_BACKGROUND")]
+    Background,
+    #[doc(alias = "ATSPI_LAYER_CANVAS")]
+    Canvas,
+    #[doc(alias = "ATSPI_LAYER_WIDGET")]
+    Widget,
+    #[doc(alias = "ATSPI_LAYER_MDI")]
+    Mdi,
+    #[doc(alias = "ATSPI_LAYER_POPUP")]
+    Popup,
+    #[doc(alias = "ATSPI_LAYER_OVERLAY")]
+    Overlay,
+    #[doc(alias = "ATSPI_LAYER_WINDOW")]
+    Window,
+    #[doc(alias = "ATSPI_LAYER_LAST_DEFINED")]
+    LastDefined,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for ComponentLayer {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ComponentLayer::{}", match *self {
+            Self::Invalid => "Invalid",
+            Self::Background => "Background",
+            Self::Canvas => "Canvas",
+            Self::Widget => "Widget",
+            Self::Mdi => "Mdi",
+            Self::Popup => "Popup",
+            Self::Overlay => "Overlay",
+            Self::Window => "Window",
+            Self::LastDefined => "LastDefined",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for ComponentLayer {
+    type GlibType = ffi::AtspiComponentLayer;
+
+    fn into_glib(self) -> ffi::AtspiComponentLayer {
+        match self {
+            Self::Invalid => ffi::ATSPI_LAYER_INVALID,
+            Self::Background => ffi::ATSPI_LAYER_BACKGROUND,
+            Self::Canvas => ffi::ATSPI_LAYER_CANVAS,
+            Self::Widget => ffi::ATSPI_LAYER_WIDGET,
+            Self::Mdi => ffi::ATSPI_LAYER_MDI,
+            Self::Popup => ffi::ATSPI_LAYER_POPUP,
+            Self::Overlay => ffi::ATSPI_LAYER_OVERLAY,
+            Self::Window => ffi::ATSPI_LAYER_WINDOW,
+            Self::LastDefined => ffi::ATSPI_LAYER_LAST_DEFINED,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiComponentLayer> for ComponentLayer {
+    unsafe fn from_glib(value: ffi::AtspiComponentLayer) -> Self {
+        match value {
+            ffi::ATSPI_LAYER_INVALID => Self::Invalid,
+            ffi::ATSPI_LAYER_BACKGROUND => Self::Background,
+            ffi::ATSPI_LAYER_CANVAS => Self::Canvas,
+            ffi::ATSPI_LAYER_WIDGET => Self::Widget,
+            ffi::ATSPI_LAYER_MDI => Self::Mdi,
+            ffi::ATSPI_LAYER_POPUP => Self::Popup,
+            ffi::ATSPI_LAYER_OVERLAY => Self::Overlay,
+            ffi::ATSPI_LAYER_WINDOW => Self::Window,
+            ffi::ATSPI_LAYER_LAST_DEFINED => Self::LastDefined,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for ComponentLayer {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_component_layer_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for ComponentLayer {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for ComponentLayer {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for ComponentLayer {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiCoordType")]
+pub enum CoordType {
+    #[doc(alias = "ATSPI_COORD_TYPE_SCREEN")]
+    Screen,
+    #[doc(alias = "ATSPI_COORD_TYPE_WINDOW")]
+    Window,
+    #[doc(alias = "ATSPI_COORD_TYPE_PARENT")]
+    Parent,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for CoordType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "CoordType::{}", match *self {
+            Self::Screen => "Screen",
+            Self::Window => "Window",
+            Self::Parent => "Parent",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for CoordType {
+    type GlibType = ffi::AtspiCoordType;
+
+    fn into_glib(self) -> ffi::AtspiCoordType {
+        match self {
+            Self::Screen => ffi::ATSPI_COORD_TYPE_SCREEN,
+            Self::Window => ffi::ATSPI_COORD_TYPE_WINDOW,
+            Self::Parent => ffi::ATSPI_COORD_TYPE_PARENT,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiCoordType> for CoordType {
+    unsafe fn from_glib(value: ffi::AtspiCoordType) -> Self {
+        match value {
+            ffi::ATSPI_COORD_TYPE_SCREEN => Self::Screen,
+            ffi::ATSPI_COORD_TYPE_WINDOW => Self::Window,
+            ffi::ATSPI_COORD_TYPE_PARENT => Self::Parent,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for CoordType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_coord_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for CoordType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for CoordType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for CoordType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
 #[doc(alias = "AtspiRole")]
 pub enum Role {
     #[doc(alias = "ATSPI_ROLE_INVALID")]
@@ -725,6 +1220,691 @@ unsafe impl<'a> FromValue<'a> for Role {
 }
 
 impl ToValue for Role {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiScrollType")]
+pub enum ScrollType {
+    #[doc(alias = "ATSPI_SCROLL_TOP_LEFT")]
+    TopLeft,
+    #[doc(alias = "ATSPI_SCROLL_BOTTOM_RIGHT")]
+    BottomRight,
+    #[doc(alias = "ATSPI_SCROLL_TOP_EDGE")]
+    TopEdge,
+    #[doc(alias = "ATSPI_SCROLL_BOTTOM_EDGE")]
+    BottomEdge,
+    #[doc(alias = "ATSPI_SCROLL_LEFT_EDGE")]
+    LeftEdge,
+    #[doc(alias = "ATSPI_SCROLL_RIGHT_EDGE")]
+    RightEdge,
+    #[doc(alias = "ATSPI_SCROLL_ANYWHERE")]
+    Anywhere,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for ScrollType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ScrollType::{}", match *self {
+            Self::TopLeft => "TopLeft",
+            Self::BottomRight => "BottomRight",
+            Self::TopEdge => "TopEdge",
+            Self::BottomEdge => "BottomEdge",
+            Self::LeftEdge => "LeftEdge",
+            Self::RightEdge => "RightEdge",
+            Self::Anywhere => "Anywhere",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for ScrollType {
+    type GlibType = ffi::AtspiScrollType;
+
+    fn into_glib(self) -> ffi::AtspiScrollType {
+        match self {
+            Self::TopLeft => ffi::ATSPI_SCROLL_TOP_LEFT,
+            Self::BottomRight => ffi::ATSPI_SCROLL_BOTTOM_RIGHT,
+            Self::TopEdge => ffi::ATSPI_SCROLL_TOP_EDGE,
+            Self::BottomEdge => ffi::ATSPI_SCROLL_BOTTOM_EDGE,
+            Self::LeftEdge => ffi::ATSPI_SCROLL_LEFT_EDGE,
+            Self::RightEdge => ffi::ATSPI_SCROLL_RIGHT_EDGE,
+            Self::Anywhere => ffi::ATSPI_SCROLL_ANYWHERE,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiScrollType> for ScrollType {
+    unsafe fn from_glib(value: ffi::AtspiScrollType) -> Self {
+        match value {
+            ffi::ATSPI_SCROLL_TOP_LEFT => Self::TopLeft,
+            ffi::ATSPI_SCROLL_BOTTOM_RIGHT => Self::BottomRight,
+            ffi::ATSPI_SCROLL_TOP_EDGE => Self::TopEdge,
+            ffi::ATSPI_SCROLL_BOTTOM_EDGE => Self::BottomEdge,
+            ffi::ATSPI_SCROLL_LEFT_EDGE => Self::LeftEdge,
+            ffi::ATSPI_SCROLL_RIGHT_EDGE => Self::RightEdge,
+            ffi::ATSPI_SCROLL_ANYWHERE => Self::Anywhere,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for ScrollType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_scroll_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for ScrollType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for ScrollType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for ScrollType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiStateType")]
+pub enum StateType {
+    #[doc(alias = "ATSPI_STATE_INVALID")]
+    Invalid,
+    #[doc(alias = "ATSPI_STATE_ACTIVE")]
+    Active,
+    #[doc(alias = "ATSPI_STATE_ARMED")]
+    Armed,
+    #[doc(alias = "ATSPI_STATE_BUSY")]
+    Busy,
+    #[doc(alias = "ATSPI_STATE_CHECKED")]
+    Checked,
+    #[doc(alias = "ATSPI_STATE_COLLAPSED")]
+    Collapsed,
+    #[doc(alias = "ATSPI_STATE_DEFUNCT")]
+    Defunct,
+    #[doc(alias = "ATSPI_STATE_EDITABLE")]
+    Editable,
+    #[doc(alias = "ATSPI_STATE_ENABLED")]
+    Enabled,
+    #[doc(alias = "ATSPI_STATE_EXPANDABLE")]
+    Expandable,
+    #[doc(alias = "ATSPI_STATE_EXPANDED")]
+    Expanded,
+    #[doc(alias = "ATSPI_STATE_FOCUSABLE")]
+    Focusable,
+    #[doc(alias = "ATSPI_STATE_FOCUSED")]
+    Focused,
+    #[doc(alias = "ATSPI_STATE_HAS_TOOLTIP")]
+    HasTooltip,
+    #[doc(alias = "ATSPI_STATE_HORIZONTAL")]
+    Horizontal,
+    #[doc(alias = "ATSPI_STATE_ICONIFIED")]
+    Iconified,
+    #[doc(alias = "ATSPI_STATE_MODAL")]
+    Modal,
+    #[doc(alias = "ATSPI_STATE_MULTI_LINE")]
+    MultiLine,
+    #[doc(alias = "ATSPI_STATE_MULTISELECTABLE")]
+    Multiselectable,
+    #[doc(alias = "ATSPI_STATE_OPAQUE")]
+    Opaque,
+    #[doc(alias = "ATSPI_STATE_PRESSED")]
+    Pressed,
+    #[doc(alias = "ATSPI_STATE_RESIZABLE")]
+    Resizable,
+    #[doc(alias = "ATSPI_STATE_SELECTABLE")]
+    Selectable,
+    #[doc(alias = "ATSPI_STATE_SELECTED")]
+    Selected,
+    #[doc(alias = "ATSPI_STATE_SENSITIVE")]
+    Sensitive,
+    #[doc(alias = "ATSPI_STATE_SHOWING")]
+    Showing,
+    #[doc(alias = "ATSPI_STATE_SINGLE_LINE")]
+    SingleLine,
+    #[doc(alias = "ATSPI_STATE_STALE")]
+    Stale,
+    #[doc(alias = "ATSPI_STATE_TRANSIENT")]
+    Transient,
+    #[doc(alias = "ATSPI_STATE_VERTICAL")]
+    Vertical,
+    #[doc(alias = "ATSPI_STATE_VISIBLE")]
+    Visible,
+    #[doc(alias = "ATSPI_STATE_MANAGES_DESCENDANTS")]
+    ManagesDescendants,
+    #[doc(alias = "ATSPI_STATE_INDETERMINATE")]
+    Indeterminate,
+    #[doc(alias = "ATSPI_STATE_REQUIRED")]
+    Required,
+    #[doc(alias = "ATSPI_STATE_TRUNCATED")]
+    Truncated,
+    #[doc(alias = "ATSPI_STATE_ANIMATED")]
+    Animated,
+    #[doc(alias = "ATSPI_STATE_INVALID_ENTRY")]
+    InvalidEntry,
+    #[doc(alias = "ATSPI_STATE_SUPPORTS_AUTOCOMPLETION")]
+    SupportsAutocompletion,
+    #[doc(alias = "ATSPI_STATE_SELECTABLE_TEXT")]
+    SelectableText,
+    #[doc(alias = "ATSPI_STATE_IS_DEFAULT")]
+    IsDefault,
+    #[doc(alias = "ATSPI_STATE_VISITED")]
+    Visited,
+    #[doc(alias = "ATSPI_STATE_CHECKABLE")]
+    Checkable,
+    #[doc(alias = "ATSPI_STATE_HAS_POPUP")]
+    HasPopup,
+    #[doc(alias = "ATSPI_STATE_READ_ONLY")]
+    ReadOnly,
+    #[doc(alias = "ATSPI_STATE_LAST_DEFINED")]
+    LastDefined,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for StateType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "StateType::{}", match *self {
+            Self::Invalid => "Invalid",
+            Self::Active => "Active",
+            Self::Armed => "Armed",
+            Self::Busy => "Busy",
+            Self::Checked => "Checked",
+            Self::Collapsed => "Collapsed",
+            Self::Defunct => "Defunct",
+            Self::Editable => "Editable",
+            Self::Enabled => "Enabled",
+            Self::Expandable => "Expandable",
+            Self::Expanded => "Expanded",
+            Self::Focusable => "Focusable",
+            Self::Focused => "Focused",
+            Self::HasTooltip => "HasTooltip",
+            Self::Horizontal => "Horizontal",
+            Self::Iconified => "Iconified",
+            Self::Modal => "Modal",
+            Self::MultiLine => "MultiLine",
+            Self::Multiselectable => "Multiselectable",
+            Self::Opaque => "Opaque",
+            Self::Pressed => "Pressed",
+            Self::Resizable => "Resizable",
+            Self::Selectable => "Selectable",
+            Self::Selected => "Selected",
+            Self::Sensitive => "Sensitive",
+            Self::Showing => "Showing",
+            Self::SingleLine => "SingleLine",
+            Self::Stale => "Stale",
+            Self::Transient => "Transient",
+            Self::Vertical => "Vertical",
+            Self::Visible => "Visible",
+            Self::ManagesDescendants => "ManagesDescendants",
+            Self::Indeterminate => "Indeterminate",
+            Self::Required => "Required",
+            Self::Truncated => "Truncated",
+            Self::Animated => "Animated",
+            Self::InvalidEntry => "InvalidEntry",
+            Self::SupportsAutocompletion => "SupportsAutocompletion",
+            Self::SelectableText => "SelectableText",
+            Self::IsDefault => "IsDefault",
+            Self::Visited => "Visited",
+            Self::Checkable => "Checkable",
+            Self::HasPopup => "HasPopup",
+            Self::ReadOnly => "ReadOnly",
+            Self::LastDefined => "LastDefined",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for StateType {
+    type GlibType = ffi::AtspiStateType;
+
+    fn into_glib(self) -> ffi::AtspiStateType {
+        match self {
+            Self::Invalid => ffi::ATSPI_STATE_INVALID,
+            Self::Active => ffi::ATSPI_STATE_ACTIVE,
+            Self::Armed => ffi::ATSPI_STATE_ARMED,
+            Self::Busy => ffi::ATSPI_STATE_BUSY,
+            Self::Checked => ffi::ATSPI_STATE_CHECKED,
+            Self::Collapsed => ffi::ATSPI_STATE_COLLAPSED,
+            Self::Defunct => ffi::ATSPI_STATE_DEFUNCT,
+            Self::Editable => ffi::ATSPI_STATE_EDITABLE,
+            Self::Enabled => ffi::ATSPI_STATE_ENABLED,
+            Self::Expandable => ffi::ATSPI_STATE_EXPANDABLE,
+            Self::Expanded => ffi::ATSPI_STATE_EXPANDED,
+            Self::Focusable => ffi::ATSPI_STATE_FOCUSABLE,
+            Self::Focused => ffi::ATSPI_STATE_FOCUSED,
+            Self::HasTooltip => ffi::ATSPI_STATE_HAS_TOOLTIP,
+            Self::Horizontal => ffi::ATSPI_STATE_HORIZONTAL,
+            Self::Iconified => ffi::ATSPI_STATE_ICONIFIED,
+            Self::Modal => ffi::ATSPI_STATE_MODAL,
+            Self::MultiLine => ffi::ATSPI_STATE_MULTI_LINE,
+            Self::Multiselectable => ffi::ATSPI_STATE_MULTISELECTABLE,
+            Self::Opaque => ffi::ATSPI_STATE_OPAQUE,
+            Self::Pressed => ffi::ATSPI_STATE_PRESSED,
+            Self::Resizable => ffi::ATSPI_STATE_RESIZABLE,
+            Self::Selectable => ffi::ATSPI_STATE_SELECTABLE,
+            Self::Selected => ffi::ATSPI_STATE_SELECTED,
+            Self::Sensitive => ffi::ATSPI_STATE_SENSITIVE,
+            Self::Showing => ffi::ATSPI_STATE_SHOWING,
+            Self::SingleLine => ffi::ATSPI_STATE_SINGLE_LINE,
+            Self::Stale => ffi::ATSPI_STATE_STALE,
+            Self::Transient => ffi::ATSPI_STATE_TRANSIENT,
+            Self::Vertical => ffi::ATSPI_STATE_VERTICAL,
+            Self::Visible => ffi::ATSPI_STATE_VISIBLE,
+            Self::ManagesDescendants => ffi::ATSPI_STATE_MANAGES_DESCENDANTS,
+            Self::Indeterminate => ffi::ATSPI_STATE_INDETERMINATE,
+            Self::Required => ffi::ATSPI_STATE_REQUIRED,
+            Self::Truncated => ffi::ATSPI_STATE_TRUNCATED,
+            Self::Animated => ffi::ATSPI_STATE_ANIMATED,
+            Self::InvalidEntry => ffi::ATSPI_STATE_INVALID_ENTRY,
+            Self::SupportsAutocompletion => ffi::ATSPI_STATE_SUPPORTS_AUTOCOMPLETION,
+            Self::SelectableText => ffi::ATSPI_STATE_SELECTABLE_TEXT,
+            Self::IsDefault => ffi::ATSPI_STATE_IS_DEFAULT,
+            Self::Visited => ffi::ATSPI_STATE_VISITED,
+            Self::Checkable => ffi::ATSPI_STATE_CHECKABLE,
+            Self::HasPopup => ffi::ATSPI_STATE_HAS_POPUP,
+            Self::ReadOnly => ffi::ATSPI_STATE_READ_ONLY,
+            Self::LastDefined => ffi::ATSPI_STATE_LAST_DEFINED,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiStateType> for StateType {
+    unsafe fn from_glib(value: ffi::AtspiStateType) -> Self {
+        match value {
+            ffi::ATSPI_STATE_INVALID => Self::Invalid,
+            ffi::ATSPI_STATE_ACTIVE => Self::Active,
+            ffi::ATSPI_STATE_ARMED => Self::Armed,
+            ffi::ATSPI_STATE_BUSY => Self::Busy,
+            ffi::ATSPI_STATE_CHECKED => Self::Checked,
+            ffi::ATSPI_STATE_COLLAPSED => Self::Collapsed,
+            ffi::ATSPI_STATE_DEFUNCT => Self::Defunct,
+            ffi::ATSPI_STATE_EDITABLE => Self::Editable,
+            ffi::ATSPI_STATE_ENABLED => Self::Enabled,
+            ffi::ATSPI_STATE_EXPANDABLE => Self::Expandable,
+            ffi::ATSPI_STATE_EXPANDED => Self::Expanded,
+            ffi::ATSPI_STATE_FOCUSABLE => Self::Focusable,
+            ffi::ATSPI_STATE_FOCUSED => Self::Focused,
+            ffi::ATSPI_STATE_HAS_TOOLTIP => Self::HasTooltip,
+            ffi::ATSPI_STATE_HORIZONTAL => Self::Horizontal,
+            ffi::ATSPI_STATE_ICONIFIED => Self::Iconified,
+            ffi::ATSPI_STATE_MODAL => Self::Modal,
+            ffi::ATSPI_STATE_MULTI_LINE => Self::MultiLine,
+            ffi::ATSPI_STATE_MULTISELECTABLE => Self::Multiselectable,
+            ffi::ATSPI_STATE_OPAQUE => Self::Opaque,
+            ffi::ATSPI_STATE_PRESSED => Self::Pressed,
+            ffi::ATSPI_STATE_RESIZABLE => Self::Resizable,
+            ffi::ATSPI_STATE_SELECTABLE => Self::Selectable,
+            ffi::ATSPI_STATE_SELECTED => Self::Selected,
+            ffi::ATSPI_STATE_SENSITIVE => Self::Sensitive,
+            ffi::ATSPI_STATE_SHOWING => Self::Showing,
+            ffi::ATSPI_STATE_SINGLE_LINE => Self::SingleLine,
+            ffi::ATSPI_STATE_STALE => Self::Stale,
+            ffi::ATSPI_STATE_TRANSIENT => Self::Transient,
+            ffi::ATSPI_STATE_VERTICAL => Self::Vertical,
+            ffi::ATSPI_STATE_VISIBLE => Self::Visible,
+            ffi::ATSPI_STATE_MANAGES_DESCENDANTS => Self::ManagesDescendants,
+            ffi::ATSPI_STATE_INDETERMINATE => Self::Indeterminate,
+            ffi::ATSPI_STATE_REQUIRED => Self::Required,
+            ffi::ATSPI_STATE_TRUNCATED => Self::Truncated,
+            ffi::ATSPI_STATE_ANIMATED => Self::Animated,
+            ffi::ATSPI_STATE_INVALID_ENTRY => Self::InvalidEntry,
+            ffi::ATSPI_STATE_SUPPORTS_AUTOCOMPLETION => Self::SupportsAutocompletion,
+            ffi::ATSPI_STATE_SELECTABLE_TEXT => Self::SelectableText,
+            ffi::ATSPI_STATE_IS_DEFAULT => Self::IsDefault,
+            ffi::ATSPI_STATE_VISITED => Self::Visited,
+            ffi::ATSPI_STATE_CHECKABLE => Self::Checkable,
+            ffi::ATSPI_STATE_HAS_POPUP => Self::HasPopup,
+            ffi::ATSPI_STATE_READ_ONLY => Self::ReadOnly,
+            ffi::ATSPI_STATE_LAST_DEFINED => Self::LastDefined,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for StateType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_state_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for StateType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for StateType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for StateType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiTextBoundaryType")]
+pub enum TextBoundaryType {
+    #[doc(alias = "ATSPI_TEXT_BOUNDARY_CHAR")]
+    Char,
+    #[doc(alias = "ATSPI_TEXT_BOUNDARY_WORD_START")]
+    WordStart,
+    #[doc(alias = "ATSPI_TEXT_BOUNDARY_WORD_END")]
+    WordEnd,
+    #[doc(alias = "ATSPI_TEXT_BOUNDARY_SENTENCE_START")]
+    SentenceStart,
+    #[doc(alias = "ATSPI_TEXT_BOUNDARY_SENTENCE_END")]
+    SentenceEnd,
+    #[doc(alias = "ATSPI_TEXT_BOUNDARY_LINE_START")]
+    LineStart,
+    #[doc(alias = "ATSPI_TEXT_BOUNDARY_LINE_END")]
+    LineEnd,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for TextBoundaryType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "TextBoundaryType::{}", match *self {
+            Self::Char => "Char",
+            Self::WordStart => "WordStart",
+            Self::WordEnd => "WordEnd",
+            Self::SentenceStart => "SentenceStart",
+            Self::SentenceEnd => "SentenceEnd",
+            Self::LineStart => "LineStart",
+            Self::LineEnd => "LineEnd",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for TextBoundaryType {
+    type GlibType = ffi::AtspiTextBoundaryType;
+
+    fn into_glib(self) -> ffi::AtspiTextBoundaryType {
+        match self {
+            Self::Char => ffi::ATSPI_TEXT_BOUNDARY_CHAR,
+            Self::WordStart => ffi::ATSPI_TEXT_BOUNDARY_WORD_START,
+            Self::WordEnd => ffi::ATSPI_TEXT_BOUNDARY_WORD_END,
+            Self::SentenceStart => ffi::ATSPI_TEXT_BOUNDARY_SENTENCE_START,
+            Self::SentenceEnd => ffi::ATSPI_TEXT_BOUNDARY_SENTENCE_END,
+            Self::LineStart => ffi::ATSPI_TEXT_BOUNDARY_LINE_START,
+            Self::LineEnd => ffi::ATSPI_TEXT_BOUNDARY_LINE_END,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiTextBoundaryType> for TextBoundaryType {
+    unsafe fn from_glib(value: ffi::AtspiTextBoundaryType) -> Self {
+        match value {
+            ffi::ATSPI_TEXT_BOUNDARY_CHAR => Self::Char,
+            ffi::ATSPI_TEXT_BOUNDARY_WORD_START => Self::WordStart,
+            ffi::ATSPI_TEXT_BOUNDARY_WORD_END => Self::WordEnd,
+            ffi::ATSPI_TEXT_BOUNDARY_SENTENCE_START => Self::SentenceStart,
+            ffi::ATSPI_TEXT_BOUNDARY_SENTENCE_END => Self::SentenceEnd,
+            ffi::ATSPI_TEXT_BOUNDARY_LINE_START => Self::LineStart,
+            ffi::ATSPI_TEXT_BOUNDARY_LINE_END => Self::LineEnd,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for TextBoundaryType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_text_boundary_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for TextBoundaryType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for TextBoundaryType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for TextBoundaryType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiTextClipType")]
+pub enum TextClipType {
+    #[doc(alias = "ATSPI_TEXT_CLIP_NONE")]
+    None,
+    #[doc(alias = "ATSPI_TEXT_CLIP_MIN")]
+    Min,
+    #[doc(alias = "ATSPI_TEXT_CLIP_MAX")]
+    Max,
+    #[doc(alias = "ATSPI_TEXT_CLIP_BOTH")]
+    Both,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for TextClipType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "TextClipType::{}", match *self {
+            Self::None => "None",
+            Self::Min => "Min",
+            Self::Max => "Max",
+            Self::Both => "Both",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for TextClipType {
+    type GlibType = ffi::AtspiTextClipType;
+
+    fn into_glib(self) -> ffi::AtspiTextClipType {
+        match self {
+            Self::None => ffi::ATSPI_TEXT_CLIP_NONE,
+            Self::Min => ffi::ATSPI_TEXT_CLIP_MIN,
+            Self::Max => ffi::ATSPI_TEXT_CLIP_MAX,
+            Self::Both => ffi::ATSPI_TEXT_CLIP_BOTH,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiTextClipType> for TextClipType {
+    unsafe fn from_glib(value: ffi::AtspiTextClipType) -> Self {
+        match value {
+            ffi::ATSPI_TEXT_CLIP_NONE => Self::None,
+            ffi::ATSPI_TEXT_CLIP_MIN => Self::Min,
+            ffi::ATSPI_TEXT_CLIP_MAX => Self::Max,
+            ffi::ATSPI_TEXT_CLIP_BOTH => Self::Both,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for TextClipType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_text_clip_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for TextClipType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for TextClipType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for TextClipType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiTextGranularity")]
+pub enum TextGranularity {
+    #[doc(alias = "ATSPI_TEXT_GRANULARITY_CHAR")]
+    Char,
+    #[doc(alias = "ATSPI_TEXT_GRANULARITY_WORD")]
+    Word,
+    #[doc(alias = "ATSPI_TEXT_GRANULARITY_SENTENCE")]
+    Sentence,
+    #[doc(alias = "ATSPI_TEXT_GRANULARITY_LINE")]
+    Line,
+    #[doc(alias = "ATSPI_TEXT_GRANULARITY_PARAGRAPH")]
+    Paragraph,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for TextGranularity {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "TextGranularity::{}", match *self {
+            Self::Char => "Char",
+            Self::Word => "Word",
+            Self::Sentence => "Sentence",
+            Self::Line => "Line",
+            Self::Paragraph => "Paragraph",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for TextGranularity {
+    type GlibType = ffi::AtspiTextGranularity;
+
+    fn into_glib(self) -> ffi::AtspiTextGranularity {
+        match self {
+            Self::Char => ffi::ATSPI_TEXT_GRANULARITY_CHAR,
+            Self::Word => ffi::ATSPI_TEXT_GRANULARITY_WORD,
+            Self::Sentence => ffi::ATSPI_TEXT_GRANULARITY_SENTENCE,
+            Self::Line => ffi::ATSPI_TEXT_GRANULARITY_LINE,
+            Self::Paragraph => ffi::ATSPI_TEXT_GRANULARITY_PARAGRAPH,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiTextGranularity> for TextGranularity {
+    unsafe fn from_glib(value: ffi::AtspiTextGranularity) -> Self {
+        match value {
+            ffi::ATSPI_TEXT_GRANULARITY_CHAR => Self::Char,
+            ffi::ATSPI_TEXT_GRANULARITY_WORD => Self::Word,
+            ffi::ATSPI_TEXT_GRANULARITY_SENTENCE => Self::Sentence,
+            ffi::ATSPI_TEXT_GRANULARITY_LINE => Self::Line,
+            ffi::ATSPI_TEXT_GRANULARITY_PARAGRAPH => Self::Paragraph,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for TextGranularity {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_text_granularity_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for TextGranularity {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for TextGranularity {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for TextGranularity {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {

@@ -26,15 +26,15 @@ pub trait CollectionExt: 'static {
 
     //#[doc(alias = "atspi_collection_get_matches")]
     //#[doc(alias = "get_matches")]
-    //fn matches(&self, rule: /*Ignored*/&MatchRule, sortby: /*Ignored*/CollectionSortOrder, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error>;
+    //fn matches<P: IsA<MatchRule>>(&self, rule: &P, sortby: CollectionSortOrder, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error>;
 
     //#[doc(alias = "atspi_collection_get_matches_from")]
     //#[doc(alias = "get_matches_from")]
-    //fn matches_from<P: IsA<Accessible>>(&self, current_object: &P, rule: /*Ignored*/&MatchRule, sortby: /*Ignored*/CollectionSortOrder, tree: /*Ignored*/CollectionTreeTraversalType, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error>;
+    //fn matches_from<P: IsA<Accessible>, Q: IsA<MatchRule>>(&self, current_object: &P, rule: &Q, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error>;
 
     //#[doc(alias = "atspi_collection_get_matches_to")]
     //#[doc(alias = "get_matches_to")]
-    //fn matches_to<P: IsA<Accessible>>(&self, current_object: &P, rule: /*Ignored*/&MatchRule, sortby: /*Ignored*/CollectionSortOrder, tree: /*Ignored*/CollectionTreeTraversalType, limit_scope: bool, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error>;
+    //fn matches_to<P: IsA<Accessible>, Q: IsA<MatchRule>>(&self, current_object: &P, rule: &Q, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, limit_scope: bool, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error>;
 
     #[doc(alias = "atspi_collection_is_ancestor_of")]
     fn is_ancestor_of<P: IsA<Accessible>>(&self, test: &P) -> Result<(), glib::Error>;
@@ -49,15 +49,15 @@ impl<O: IsA<Collection>> CollectionExt for O {
         }
     }
 
-    //fn matches(&self, rule: /*Ignored*/&MatchRule, sortby: /*Ignored*/CollectionSortOrder, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error> {
+    //fn matches<P: IsA<MatchRule>>(&self, rule: &P, sortby: CollectionSortOrder, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_collection_get_matches() }
     //}
 
-    //fn matches_from<P: IsA<Accessible>>(&self, current_object: &P, rule: /*Ignored*/&MatchRule, sortby: /*Ignored*/CollectionSortOrder, tree: /*Ignored*/CollectionTreeTraversalType, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error> {
+    //fn matches_from<P: IsA<Accessible>, Q: IsA<MatchRule>>(&self, current_object: &P, rule: &Q, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_collection_get_matches_from() }
     //}
 
-    //fn matches_to<P: IsA<Accessible>>(&self, current_object: &P, rule: /*Ignored*/&MatchRule, sortby: /*Ignored*/CollectionSortOrder, tree: /*Ignored*/CollectionTreeTraversalType, limit_scope: bool, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error> {
+    //fn matches_to<P: IsA<Accessible>, Q: IsA<MatchRule>>(&self, current_object: &P, rule: &Q, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, limit_scope: bool, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_collection_get_matches_to() }
     //}
 

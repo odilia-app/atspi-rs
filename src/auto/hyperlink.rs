@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use crate::Accessible;
+use crate::Range;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
@@ -24,9 +25,9 @@ pub trait HyperlinkExt: 'static {
     #[doc(alias = "get_end_index")]
     fn end_index(&self) -> Result<i32, glib::Error>;
 
-    //#[doc(alias = "atspi_hyperlink_get_index_range")]
-    //#[doc(alias = "get_index_range")]
-    //fn index_range(&self) -> Result</*Ignored*/Range, glib::Error>;
+    #[doc(alias = "atspi_hyperlink_get_index_range")]
+    #[doc(alias = "get_index_range")]
+    fn index_range(&self) -> Result<Range, glib::Error>;
 
     #[doc(alias = "atspi_hyperlink_get_n_anchors")]
     #[doc(alias = "get_n_anchors")]
@@ -57,9 +58,13 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         }
     }
 
-    //fn index_range(&self) -> Result</*Ignored*/Range, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_hyperlink_get_index_range() }
-    //}
+    fn index_range(&self) -> Result<Range, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_hyperlink_get_index_range(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn n_anchors(&self) -> Result<i32, glib::Error> {
         unsafe {

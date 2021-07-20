@@ -2,6 +2,9 @@
 // from gir-files
 // DO NOT EDIT
 
+use crate::CoordType;
+use crate::Point;
+use crate::Rect;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
@@ -23,21 +26,21 @@ pub trait ImageExt: 'static {
     #[doc(alias = "get_image_description")]
     fn image_description(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[doc(alias = "atspi_image_get_image_extents")]
-    //#[doc(alias = "get_image_extents")]
-    //fn image_extents(&self, ctype: /*Ignored*/CoordType) -> Result</*Ignored*/Rect, glib::Error>;
+    #[doc(alias = "atspi_image_get_image_extents")]
+    #[doc(alias = "get_image_extents")]
+    fn image_extents(&self, ctype: CoordType) -> Result<Rect, glib::Error>;
 
     #[doc(alias = "atspi_image_get_image_locale")]
     #[doc(alias = "get_image_locale")]
     fn image_locale(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[doc(alias = "atspi_image_get_image_position")]
-    //#[doc(alias = "get_image_position")]
-    //fn image_position(&self, ctype: /*Ignored*/CoordType) -> Result</*Ignored*/Point, glib::Error>;
+    #[doc(alias = "atspi_image_get_image_position")]
+    #[doc(alias = "get_image_position")]
+    fn image_position(&self, ctype: CoordType) -> Result<Point, glib::Error>;
 
-    //#[doc(alias = "atspi_image_get_image_size")]
-    //#[doc(alias = "get_image_size")]
-    //fn image_size(&self) -> Result</*Ignored*/Point, glib::Error>;
+    #[doc(alias = "atspi_image_get_image_size")]
+    #[doc(alias = "get_image_size")]
+    fn image_size(&self) -> Result<Point, glib::Error>;
 }
 
 impl<O: IsA<Image>> ImageExt for O {
@@ -49,9 +52,13 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    //fn image_extents(&self, ctype: /*Ignored*/CoordType) -> Result</*Ignored*/Rect, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_image_get_image_extents() }
-    //}
+    fn image_extents(&self, ctype: CoordType) -> Result<Rect, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_image_get_image_extents(self.as_ref().to_glib_none().0, ctype.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn image_locale(&self) -> Result<glib::GString, glib::Error> {
         unsafe {
@@ -61,13 +68,21 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    //fn image_position(&self, ctype: /*Ignored*/CoordType) -> Result</*Ignored*/Point, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_image_get_image_position() }
-    //}
+    fn image_position(&self, ctype: CoordType) -> Result<Point, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_image_get_image_position(self.as_ref().to_glib_none().0, ctype.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn image_size(&self) -> Result</*Ignored*/Point, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_image_get_image_size() }
-    //}
+    fn image_size(&self) -> Result<Point, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_image_get_image_size(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 }
 
 impl fmt::Display for Image {

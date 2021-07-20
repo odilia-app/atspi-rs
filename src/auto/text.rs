@@ -2,6 +2,15 @@
 // from gir-files
 // DO NOT EDIT
 
+use crate::CoordType;
+use crate::Range;
+use crate::Rect;
+use crate::ScrollType;
+use crate::TextBoundaryType;
+#[cfg(any(feature = "v2_9_90", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_9_90")))]
+use crate::TextGranularity;
+use crate::TextRange;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
@@ -38,7 +47,7 @@ pub trait TextExt: 'static {
 
     //#[doc(alias = "atspi_text_get_bounded_ranges")]
     //#[doc(alias = "get_bounded_ranges")]
-    //fn bounded_ranges(&self, x: i32, y: i32, width: i32, height: i32, type_: /*Ignored*/CoordType, clipTypeX: /*Ignored*/TextClipType, clipTypeY: /*Ignored*/TextClipType) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 64 }, glib::Error>;
+    //fn bounded_ranges(&self, x: i32, y: i32, width: i32, height: i32, type_: CoordType, clipTypeX: TextClipType, clipTypeY: TextClipType) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 64 }, glib::Error>;
 
     #[doc(alias = "atspi_text_get_caret_offset")]
     #[doc(alias = "get_caret_offset")]
@@ -52,9 +61,9 @@ pub trait TextExt: 'static {
     #[doc(alias = "get_character_count")]
     fn character_count(&self) -> Result<i32, glib::Error>;
 
-    //#[doc(alias = "atspi_text_get_character_extents")]
-    //#[doc(alias = "get_character_extents")]
-    //fn character_extents(&self, offset: i32, type_: /*Ignored*/CoordType) -> Result</*Ignored*/Rect, glib::Error>;
+    #[doc(alias = "atspi_text_get_character_extents")]
+    #[doc(alias = "get_character_extents")]
+    fn character_extents(&self, offset: i32, type_: CoordType) -> Result<Rect, glib::Error>;
 
     //#[doc(alias = "atspi_text_get_default_attributes")]
     //#[doc(alias = "get_default_attributes")]
@@ -64,36 +73,36 @@ pub trait TextExt: 'static {
     #[doc(alias = "get_n_selections")]
     fn n_selections(&self) -> Result<i32, glib::Error>;
 
-    //#[doc(alias = "atspi_text_get_offset_at_point")]
-    //#[doc(alias = "get_offset_at_point")]
-    //fn offset_at_point(&self, x: i32, y: i32, type_: /*Ignored*/CoordType) -> Result<i32, glib::Error>;
+    #[doc(alias = "atspi_text_get_offset_at_point")]
+    #[doc(alias = "get_offset_at_point")]
+    fn offset_at_point(&self, x: i32, y: i32, type_: CoordType) -> Result<i32, glib::Error>;
 
-    //#[doc(alias = "atspi_text_get_range_extents")]
-    //#[doc(alias = "get_range_extents")]
-    //fn range_extents(&self, start_offset: i32, end_offset: i32, type_: /*Ignored*/CoordType) -> Result</*Ignored*/Rect, glib::Error>;
+    #[doc(alias = "atspi_text_get_range_extents")]
+    #[doc(alias = "get_range_extents")]
+    fn range_extents(&self, start_offset: i32, end_offset: i32, type_: CoordType) -> Result<Rect, glib::Error>;
 
-    //#[doc(alias = "atspi_text_get_selection")]
-    //#[doc(alias = "get_selection")]
-    //fn selection(&self, selection_num: i32) -> Result</*Ignored*/Range, glib::Error>;
+    #[doc(alias = "atspi_text_get_selection")]
+    #[doc(alias = "get_selection")]
+    fn selection(&self, selection_num: i32) -> Result<Range, glib::Error>;
 
-    //#[cfg(any(feature = "v2_9_90", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_9_90")))]
-    //#[doc(alias = "atspi_text_get_string_at_offset")]
-    //#[doc(alias = "get_string_at_offset")]
-    //fn string_at_offset(&self, offset: i32, granularity: /*Ignored*/TextGranularity) -> Result</*Ignored*/TextRange, glib::Error>;
+    #[cfg(any(feature = "v2_9_90", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_9_90")))]
+    #[doc(alias = "atspi_text_get_string_at_offset")]
+    #[doc(alias = "get_string_at_offset")]
+    fn string_at_offset(&self, offset: i32, granularity: TextGranularity) -> Result<TextRange, glib::Error>;
 
     #[doc(alias = "atspi_text_get_text")]
     #[doc(alias = "get_text")]
     fn text(&self, start_offset: i32, end_offset: i32) -> Result<glib::GString, glib::Error>;
 
-    //#[doc(alias = "atspi_text_get_text_after_offset")]
-    //#[doc(alias = "get_text_after_offset")]
-    //fn text_after_offset(&self, offset: i32, type_: /*Ignored*/TextBoundaryType) -> Result</*Ignored*/TextRange, glib::Error>;
+    #[doc(alias = "atspi_text_get_text_after_offset")]
+    #[doc(alias = "get_text_after_offset")]
+    fn text_after_offset(&self, offset: i32, type_: TextBoundaryType) -> Result<TextRange, glib::Error>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_text_get_text_at_offset")]
-    //#[doc(alias = "get_text_at_offset")]
-    //fn text_at_offset(&self, offset: i32, type_: /*Ignored*/TextBoundaryType) -> Result</*Ignored*/TextRange, glib::Error>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_text_get_text_at_offset")]
+    #[doc(alias = "get_text_at_offset")]
+    fn text_at_offset(&self, offset: i32, type_: TextBoundaryType) -> Result<TextRange, glib::Error>;
 
     #[doc(alias = "atspi_text_get_text_attribute_value")]
     #[doc(alias = "get_text_attribute_value")]
@@ -103,18 +112,18 @@ pub trait TextExt: 'static {
     //#[doc(alias = "get_text_attributes")]
     //fn text_attributes(&self, offset: i32) -> Result<(/*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }, i32, i32), glib::Error>;
 
-    //#[doc(alias = "atspi_text_get_text_before_offset")]
-    //#[doc(alias = "get_text_before_offset")]
-    //fn text_before_offset(&self, offset: i32, type_: /*Ignored*/TextBoundaryType) -> Result</*Ignored*/TextRange, glib::Error>;
+    #[doc(alias = "atspi_text_get_text_before_offset")]
+    #[doc(alias = "get_text_before_offset")]
+    fn text_before_offset(&self, offset: i32, type_: TextBoundaryType) -> Result<TextRange, glib::Error>;
 
     #[doc(alias = "atspi_text_remove_selection")]
     fn remove_selection(&self, selection_num: i32) -> Result<(), glib::Error>;
 
-    //#[doc(alias = "atspi_text_scroll_substring_to")]
-    //fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: /*Ignored*/ScrollType) -> Result<(), glib::Error>;
+    #[doc(alias = "atspi_text_scroll_substring_to")]
+    fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> Result<(), glib::Error>;
 
-    //#[doc(alias = "atspi_text_scroll_substring_to_point")]
-    //fn scroll_substring_to_point(&self, start_offset: i32, end_offset: i32, coords: /*Ignored*/CoordType, x: i32, y: i32) -> Result<(), glib::Error>;
+    #[doc(alias = "atspi_text_scroll_substring_to_point")]
+    fn scroll_substring_to_point(&self, start_offset: i32, end_offset: i32, coords: CoordType, x: i32, y: i32) -> Result<(), glib::Error>;
 
     #[doc(alias = "atspi_text_set_caret_offset")]
     fn set_caret_offset(&self, new_offset: i32) -> Result<(), glib::Error>;
@@ -148,7 +157,7 @@ impl<O: IsA<Text>> TextExt for O {
     //    unsafe { TODO: call ffi:atspi_text_get_attributes() }
     //}
 
-    //fn bounded_ranges(&self, x: i32, y: i32, width: i32, height: i32, type_: /*Ignored*/CoordType, clipTypeX: /*Ignored*/TextClipType, clipTypeY: /*Ignored*/TextClipType) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 64 }, glib::Error> {
+    //fn bounded_ranges(&self, x: i32, y: i32, width: i32, height: i32, type_: CoordType, clipTypeX: TextClipType, clipTypeY: TextClipType) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 64 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_text_get_bounded_ranges() }
     //}
 
@@ -176,9 +185,13 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    //fn character_extents(&self, offset: i32, type_: /*Ignored*/CoordType) -> Result</*Ignored*/Rect, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_get_character_extents() }
-    //}
+    fn character_extents(&self, offset: i32, type_: CoordType) -> Result<Rect, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_text_get_character_extents(self.as_ref().to_glib_none().0, offset, type_.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     //fn default_attributes(&self) -> Result</*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_text_get_default_attributes() }
@@ -192,23 +205,39 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    //fn offset_at_point(&self, x: i32, y: i32, type_: /*Ignored*/CoordType) -> Result<i32, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_get_offset_at_point() }
-    //}
+    fn offset_at_point(&self, x: i32, y: i32, type_: CoordType) -> Result<i32, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_text_get_offset_at_point(self.as_ref().to_glib_none().0, x, y, type_.into_glib(), &mut error);
+            if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn range_extents(&self, start_offset: i32, end_offset: i32, type_: /*Ignored*/CoordType) -> Result</*Ignored*/Rect, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_get_range_extents() }
-    //}
+    fn range_extents(&self, start_offset: i32, end_offset: i32, type_: CoordType) -> Result<Rect, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_text_get_range_extents(self.as_ref().to_glib_none().0, start_offset, end_offset, type_.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn selection(&self, selection_num: i32) -> Result</*Ignored*/Range, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_get_selection() }
-    //}
+    fn selection(&self, selection_num: i32) -> Result<Range, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_text_get_selection(self.as_ref().to_glib_none().0, selection_num, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //#[cfg(any(feature = "v2_9_90", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_9_90")))]
-    //fn string_at_offset(&self, offset: i32, granularity: /*Ignored*/TextGranularity) -> Result</*Ignored*/TextRange, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_get_string_at_offset() }
-    //}
+    #[cfg(any(feature = "v2_9_90", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_9_90")))]
+    fn string_at_offset(&self, offset: i32, granularity: TextGranularity) -> Result<TextRange, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_text_get_string_at_offset(self.as_ref().to_glib_none().0, offset, granularity.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn text(&self, start_offset: i32, end_offset: i32) -> Result<glib::GString, glib::Error> {
         unsafe {
@@ -218,13 +247,21 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    //fn text_after_offset(&self, offset: i32, type_: /*Ignored*/TextBoundaryType) -> Result</*Ignored*/TextRange, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_get_text_after_offset() }
-    //}
+    fn text_after_offset(&self, offset: i32, type_: TextBoundaryType) -> Result<TextRange, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_text_get_text_after_offset(self.as_ref().to_glib_none().0, offset, type_.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn text_at_offset(&self, offset: i32, type_: /*Ignored*/TextBoundaryType) -> Result</*Ignored*/TextRange, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_get_text_at_offset() }
-    //}
+    fn text_at_offset(&self, offset: i32, type_: TextBoundaryType) -> Result<TextRange, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_text_get_text_at_offset(self.as_ref().to_glib_none().0, offset, type_.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn text_attribute_value(&self, offset: i32, attribute_name: &str) -> Result<Option<glib::GString>, glib::Error> {
         unsafe {
@@ -238,9 +275,13 @@ impl<O: IsA<Text>> TextExt for O {
     //    unsafe { TODO: call ffi:atspi_text_get_text_attributes() }
     //}
 
-    //fn text_before_offset(&self, offset: i32, type_: /*Ignored*/TextBoundaryType) -> Result</*Ignored*/TextRange, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_get_text_before_offset() }
-    //}
+    fn text_before_offset(&self, offset: i32, type_: TextBoundaryType) -> Result<TextRange, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_text_get_text_before_offset(self.as_ref().to_glib_none().0, offset, type_.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn remove_selection(&self, selection_num: i32) -> Result<(), glib::Error> {
         unsafe {
@@ -250,13 +291,21 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    //fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: /*Ignored*/ScrollType) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_scroll_substring_to() }
-    //}
+    fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::atspi_text_scroll_substring_to(self.as_ref().to_glib_none().0, start_offset, end_offset, type_.into_glib(), &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn scroll_substring_to_point(&self, start_offset: i32, end_offset: i32, coords: /*Ignored*/CoordType, x: i32, y: i32) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_text_scroll_substring_to_point() }
-    //}
+    fn scroll_substring_to_point(&self, start_offset: i32, end_offset: i32, coords: CoordType, x: i32, y: i32) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::atspi_text_scroll_substring_to_point(self.as_ref().to_glib_none().0, start_offset, end_offset, coords.into_glib(), x, y, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn set_caret_offset(&self, new_offset: i32) -> Result<(), glib::Error> {
         unsafe {
