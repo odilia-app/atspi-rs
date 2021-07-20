@@ -170,7 +170,7 @@ pub trait AccessibleExt: 'static {
 
     #[doc(alias = "atspi_accessible_get_process_id")]
     #[doc(alias = "get_process_id")]
-    fn process_id(&self) -> Result<(), glib::Error>;
+    fn process_id(&self) -> Result<u32, glib::Error>;
 
     //#[doc(alias = "atspi_accessible_get_relation_set")]
     //#[doc(alias = "get_relation_set")]
@@ -449,11 +449,11 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    fn process_id(&self) -> Result<(), glib::Error> {
+    fn process_id(&self) -> Result<u32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::atspi_accessible_get_process_id(self.as_ref().to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let ret = ffi::atspi_accessible_get_process_id(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
         }
     }
 

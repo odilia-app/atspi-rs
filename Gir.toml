@@ -10,7 +10,6 @@ single_version_file = true
 generate_display_trait = true
 trust_return_value_nullability = false
 generate = [
-"Atspi.Accessible",
 "Atspi.Action",
 "Atspi.Collection",
 "Atspi.Component",
@@ -48,3 +47,11 @@ manual = [
 "GLib.Error",
 "GLib.Array",
 ]
+
+[[object]]
+name = "Atspi.Accessible"
+status = "generate"
+    [[object.function]]
+        name = "get_process_id"
+        [object.function.return]
+    use_return_for_result = true
