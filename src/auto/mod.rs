@@ -2,6 +2,10 @@
 // from gir-files
 // DO NOT EDIT
 
+mod accessible;
+pub use self::accessible::{Accessible, NONE_ACCESSIBLE};
+
 #[doc(hidden)]
 pub mod traits {
+    pub use super::accessible::AccessibleExt;
 }

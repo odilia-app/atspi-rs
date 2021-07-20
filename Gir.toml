@@ -9,4 +9,6 @@ deprecate_by_min_version = true
 single_version_file = true
 generate_display_trait = true
 trust_return_value_nullability = false
-generate = []
+generate = [
+"Atspi.Accessible",
+]
