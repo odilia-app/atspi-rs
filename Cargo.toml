@@ -1,6 +1,9 @@
 [package]
 name = "atspi"
 version = "0.1.0"
+description = "High-level bindings to the Assistive Technology Service Provider Interface library (libatspi)."
+authors = ["mcb2003 <mikeybuchan@hotmail.co.uk>"]
+license = "lgpl-2.1-or-later"
 edition = "2018"
 
 [features]

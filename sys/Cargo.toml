@@ -1,6 +1,9 @@
 [package]
 name = "atspi-sys"
 version = "0.1.0"
+description = "Low-level FFI bindings to the Assistive Technology Service Provider Interface library (libatspi)."
+authors = ["mcb2003 <mikeybuchan@hotmail.co.uk>"]
+license = "lgpl-2.1-or-later"
 edition = "2018"
 build = "build.rs"
 [package.metadata.system-deps.atspi_2]
