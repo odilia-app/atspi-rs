@@ -20,6 +20,9 @@ pub use self::document::{Document, NONE_DOCUMENT};
 mod editable_text;
 pub use self::editable_text::{EditableText, NONE_EDITABLE_TEXT};
 
+mod hyperlink;
+pub use self::hyperlink::{Hyperlink, NONE_HYPERLINK};
+
 mod hypertext;
 pub use self::hypertext::{Hypertext, NONE_HYPERTEXT};
 
@@ -41,6 +44,9 @@ pub use self::text::{Text, NONE_TEXT};
 mod value;
 pub use self::value::{Value, NONE_VALUE};
 
+mod enums;
+pub use self::enums::Role;
+
 #[doc(hidden)]
 pub mod traits {
     pub use super::accessible::AccessibleExt;
@@ -49,6 +55,7 @@ pub mod traits {
     pub use super::component::ComponentExt;
     pub use super::document::DocumentExt;
     pub use super::editable_text::EditableTextExt;
+    pub use super::hyperlink::HyperlinkExt;
     pub use super::hypertext::HypertextExt;
     pub use super::image::ImageExt;
     pub use super::selection::SelectionExt;

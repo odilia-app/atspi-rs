@@ -7,8 +7,10 @@ use crate::Collection;
 use crate::Component;
 use crate::Document;
 use crate::EditableText;
+use crate::Hyperlink;
 use crate::Hypertext;
 use crate::Image;
+use crate::Role;
 use crate::Selection;
 use crate::Table;
 use crate::TableCell;
@@ -114,9 +116,9 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "get_editable_text_iface")]
     fn editable_text_iface(&self) -> Option<EditableText>;
 
-    //#[doc(alias = "atspi_accessible_get_hyperlink")]
-    //#[doc(alias = "get_hyperlink")]
-    //fn hyperlink(&self) -> /*Ignored*/Option<Hyperlink>;
+    #[doc(alias = "atspi_accessible_get_hyperlink")]
+    #[doc(alias = "get_hyperlink")]
+    fn hyperlink(&self) -> Option<Hyperlink>;
 
     #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
     #[doc(alias = "atspi_accessible_get_hypertext")]
@@ -172,9 +174,9 @@ pub trait AccessibleExt: 'static {
     //#[doc(alias = "get_relation_set")]
     //fn relation_set(&self) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 19 }, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_role")]
-    //#[doc(alias = "get_role")]
-    //fn role(&self) -> Result</*Ignored*/Role, glib::Error>;
+    #[doc(alias = "atspi_accessible_get_role")]
+    #[doc(alias = "get_role")]
+    fn role(&self) -> Result<Role, glib::Error>;
 
     #[doc(alias = "atspi_accessible_get_role_name")]
     #[doc(alias = "get_role_name")]
@@ -363,9 +365,11 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn hyperlink(&self) -> /*Ignored*/Option<Hyperlink> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_hyperlink() }
-    //}
+    fn hyperlink(&self) -> Option<Hyperlink> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_hyperlink(self.as_ref().to_glib_none().0))
+        }
+    }
 
     fn hypertext(&self) -> Option<Hypertext> {
         unsafe {
@@ -455,9 +459,13 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
     //    unsafe { TODO: call ffi:atspi_accessible_get_relation_set() }
     //}
 
-    //fn role(&self) -> Result</*Ignored*/Role, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_role() }
-    //}
+    fn role(&self) -> Result<Role, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_role(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn role_name(&self) -> Result<glib::GString, glib::Error> {
         unsafe {

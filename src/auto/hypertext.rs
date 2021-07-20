@@ -2,6 +2,7 @@
 // from gir-files
 // DO NOT EDIT
 
+use crate::Hyperlink;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
@@ -19,9 +20,9 @@ glib::wrapper! {
 pub const NONE_HYPERTEXT: Option<&Hypertext> = None;
 
 pub trait HypertextExt: 'static {
-    //#[doc(alias = "atspi_hypertext_get_link")]
-    //#[doc(alias = "get_link")]
-    //fn link(&self, link_index: i32) -> Result</*Ignored*/Option<Hyperlink>, glib::Error>;
+    #[doc(alias = "atspi_hypertext_get_link")]
+    #[doc(alias = "get_link")]
+    fn link(&self, link_index: i32) -> Result<Option<Hyperlink>, glib::Error>;
 
     #[doc(alias = "atspi_hypertext_get_link_index")]
     #[doc(alias = "get_link_index")]
@@ -33,9 +34,13 @@ pub trait HypertextExt: 'static {
 }
 
 impl<O: IsA<Hypertext>> HypertextExt for O {
-    //fn link(&self, link_index: i32) -> Result</*Ignored*/Option<Hyperlink>, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_hypertext_get_link() }
-    //}
+    fn link(&self, link_index: i32) -> Result<Option<Hyperlink>, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_hypertext_get_link(self.as_ref().to_glib_none().0, link_index, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn link_index(&self, character_offset: i32) -> Result<i32, glib::Error> {
         unsafe {

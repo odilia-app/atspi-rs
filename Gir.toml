@@ -23,6 +23,8 @@ generate = [
 "Atspi.TableCell",
 "Atspi.Text",
 "Atspi.Value",
+"Atspi.Hyperlink",
+"Atspi.Role",
 ]
 manual = [
 "GLib.Error",
