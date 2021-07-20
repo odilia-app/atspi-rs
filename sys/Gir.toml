@@ -1,0 +1,10 @@
+[options]
+library = "Atspi"
+version = "2.0"
+work_mode = "sys"
+girs_directories = ["../gir-files"]
+target_path = "."
+external_libraries = [
+   "GLib",
+   "GObject",
+]
