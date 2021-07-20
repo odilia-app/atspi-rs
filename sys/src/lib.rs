@@ -13,6 +13,7 @@ use gobject_sys as gobject;
 use libc::{c_int, c_char, c_uchar, c_float, c_uint, c_double,
     c_short, c_ushort, c_long, c_ulong,
     c_void, size_t, ssize_t, intptr_t, uintptr_t, time_t, FILE};
+use libc::timeval;
 
 #[allow(unused_imports)]
 use glib::{gboolean, gconstpointer, gpointer, GType};

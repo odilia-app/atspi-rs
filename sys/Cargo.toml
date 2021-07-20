@@ -19,7 +19,7 @@ version = "2.34"
 features = ["dox"]
 
 [dependencies]
-libc = "0.2"
+libc = { version = "0.2.91", features = ["extra_traits"] }
 
 [dependencies.glib-sys]
 git = "https://github.com/gtk-rs/gtk-rs-core"
