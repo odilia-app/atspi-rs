@@ -41,12 +41,18 @@ generate = [
 "Atspi.CollectionSortOrder",
 "Atspi.CollectionTreeTraversalType",
 "Atspi.CollectionMatchType",
-"Atspi.*",
 ]
 manual = [
 "GLib.Error",
 "GLib.Array",
 ]
+
+[[object]]
+name = "Atspi.*"
+status = "generate"
+    [[object.function]]
+    name = "init"
+    manual = true
 
 [[object]]
 name = "Atspi.Accessible"

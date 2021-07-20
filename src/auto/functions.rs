@@ -72,13 +72,6 @@ pub fn desktop_count() -> i32 {
 //    unsafe { TODO: call ffi:atspi_get_desktop_list() }
 //}
 
-#[doc(alias = "atspi_init")]
-pub fn init() -> i32 {
-    unsafe {
-        ffi::atspi_init()
-    }
-}
-
 #[doc(alias = "atspi_is_initialized")]
 pub fn is_initialized() -> bool {
     unsafe {

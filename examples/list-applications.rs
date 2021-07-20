@@ -1,8 +1,8 @@
 use atspi::traits::AccessibleExt;
 
 fn main() {
-    if atspi::init() != 0 {
-        eprintln!("Error initialising at-spi");
+    if let Err(e) = atspi::init() {
+        eprintln!("Error initialising libatspi: {}", e);
         std::process::exit(1);
     }
 
