@@ -1,0 +1,45 @@
+--- /usr/share/gir-1.0/Atspi-2.0.gir	2021-04-22 12:10:24.000000000 +0100
++++ Atspi-2.0.gir	2021-07-20 14:53:27.158605814 +0100
+@@ -1747,7 +1747,7 @@
+         <type name="DBus.Connection" c:type="DBusConnection*"/>
+       </field>
+       <field name="root">
+-        <type name="gpointer" c:type="_AtspiAccessible*"/>
++        <type name="gpointer" c:type="AtspiAccessible*"/>
+       </field>
+       <field name="cache">
+         <type name="Cache" c:type="AtspiCache"/>
+@@ -8342,7 +8342,7 @@
+         <type name="GObject.Object" c:type="GObject"/>
+       </field>
+       <field name="accessible">
+-        <type name="gpointer" c:type="_AtspiAccessible*"/>
++        <type name="gpointer" c:type="AtspiAccessible*"/>
+       </field>
+       <field name="states">
+         <type name="gint64" c:type="gint64"/>
+@@ -11456,6 +11456,7 @@
+         </parameter>
+       </parameters>
+     </function>
++    <!--
+     <function name="dbus_server_setup_with_g_main"
+               c:identifier="atspi_dbus_server_setup_with_g_main"
+               introspectable="0">
+@@ -11478,7 +11479,7 @@
+           <doc xml:space="preserve"
+                filename="../atspi/atspi-gmain.c"
+                line="595">the server</doc>
+-          <type c:type="DBusServer*"/>
++          <type c:type="DBusServer*" />
+         </parameter>
+         <parameter name="context" transfer-ownership="none">
+           <doc xml:space="preserve"
+@@ -11488,6 +11489,7 @@
+         </parameter>
+       </parameters>
+     </function>
++        -->
+     <function name="deregister_device_event_listener"
+               c:identifier="atspi_deregister_device_event_listener"
+               throws="1">
