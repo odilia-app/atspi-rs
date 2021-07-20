@@ -1,0 +1,12 @@
+[options]
+library = "Atspi"
+version = "2.0"
+work_mode = "normal"
+girs_directories = ["./gir-files"]
+target_path = "."
+generate_safety_asserts = true
+deprecate_by_min_version = true
+single_version_file = true
+generate_display_trait = true
+trust_return_value_nullability = false
+generate = []
