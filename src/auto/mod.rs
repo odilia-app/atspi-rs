@@ -78,6 +78,40 @@ pub use self::enums::TextGranularity;
 mod flags;
 pub use self::flags::Cache;
 
+pub mod functions;
+
+mod constants;
+pub use self::constants::DBUS_INTERFACE_ACCESSIBLE;
+pub use self::constants::DBUS_INTERFACE_ACTION;
+pub use self::constants::DBUS_INTERFACE_APPLICATION;
+pub use self::constants::DBUS_INTERFACE_CACHE;
+pub use self::constants::DBUS_INTERFACE_COLLECTION;
+pub use self::constants::DBUS_INTERFACE_COMPONENT;
+pub use self::constants::DBUS_INTERFACE_DEC;
+pub use self::constants::DBUS_INTERFACE_DEVICE_EVENT_LISTENER;
+pub use self::constants::DBUS_INTERFACE_DOCUMENT;
+pub use self::constants::DBUS_INTERFACE_EDITABLE_TEXT;
+pub use self::constants::DBUS_INTERFACE_EVENT_KEYBOARD;
+pub use self::constants::DBUS_INTERFACE_EVENT_MOUSE;
+pub use self::constants::DBUS_INTERFACE_EVENT_OBJECT;
+pub use self::constants::DBUS_INTERFACE_EVENT_SCREEN_READER;
+pub use self::constants::DBUS_INTERFACE_HYPERLINK;
+pub use self::constants::DBUS_INTERFACE_HYPERTEXT;
+pub use self::constants::DBUS_INTERFACE_IMAGE;
+pub use self::constants::DBUS_INTERFACE_REGISTRY;
+pub use self::constants::DBUS_INTERFACE_SELECTION;
+pub use self::constants::DBUS_INTERFACE_SOCKET;
+pub use self::constants::DBUS_INTERFACE_TABLE;
+pub use self::constants::DBUS_INTERFACE_TABLE_CELL;
+pub use self::constants::DBUS_INTERFACE_TEXT;
+pub use self::constants::DBUS_INTERFACE_VALUE;
+pub use self::constants::DBUS_NAME_REGISTRY;
+pub use self::constants::DBUS_PATH_DEC;
+pub use self::constants::DBUS_PATH_NULL;
+pub use self::constants::DBUS_PATH_REGISTRY;
+pub use self::constants::DBUS_PATH_ROOT;
+pub use self::constants::DBUS_PATH_SCREEN_READER;
+
 #[doc(hidden)]
 pub mod traits {
     pub use super::accessible::AccessibleExt;

@@ -42,6 +42,7 @@ generate = [
 "Atspi.CollectionSortOrder",
 "Atspi.CollectionTreeTraversalType",
 "Atspi.CollectionMatchType",
+"Atspi.*",
 ]
 manual = [
 "GLib.Error",
