@@ -282,7 +282,6 @@ impl Role {
     #[doc(alias = "atspi_role_get_name")]
     #[doc(alias = "get_name")]
     pub fn name(self) -> Option<glib::GString> {
-        assert_initialized_main_thread!();
         unsafe {
             from_glib_full(ffi::atspi_role_get_name(self.into_glib()))
         }
@@ -571,7 +570,6 @@ impl IntoGlib for Role {
 #[doc(hidden)]
 impl FromGlib<ffi::AtspiRole> for Role {
     unsafe fn from_glib(value: ffi::AtspiRole) -> Self {
-        skip_assert_initialized!();
         match value {
             ffi::ATSPI_ROLE_INVALID => Self::Invalid,
             ffi::ATSPI_ROLE_ACCELERATOR_LABEL => Self::AcceleratorLabel,
@@ -722,7 +720,6 @@ unsafe impl<'a> FromValue<'a> for Role {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     unsafe fn from_value(value: &'a glib::Value) -> Self {
-        skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
