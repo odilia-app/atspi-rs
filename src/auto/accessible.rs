@@ -2,6 +2,18 @@
 // from gir-files
 // DO NOT EDIT
 
+use crate::Action;
+use crate::Collection;
+use crate::Component;
+use crate::Document;
+use crate::EditableText;
+use crate::Hypertext;
+use crate::Image;
+use crate::Selection;
+use crate::Table;
+use crate::TableCell;
+use crate::Text;
+use crate::Value;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -14,7 +26,7 @@ use std::ptr;
 
 glib::wrapper! {
     #[doc(alias = "AtspiAccessible")]
-    pub struct Accessible(Object<ffi::AtspiAccessible, ffi::AtspiAccessibleClass>);
+    pub struct Accessible(Object<ffi::AtspiAccessible, ffi::AtspiAccessibleClass>) @implements Action, Collection, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value;
 
     match fn {
         type_ => || ffi::atspi_accessible_get_type(),
@@ -33,14 +45,14 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "get_accessible_id")]
     fn accessible_id(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_action")]
-    //#[doc(alias = "get_action")]
-    //fn action(&self) -> /*Ignored*/Option<Action>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_action")]
+    #[doc(alias = "get_action")]
+    fn action(&self) -> Option<Action>;
 
-    //#[doc(alias = "atspi_accessible_get_action_iface")]
-    //#[doc(alias = "get_action_iface")]
-    //fn action_iface(&self) -> /*Ignored*/Option<Action>;
+    #[doc(alias = "atspi_accessible_get_action_iface")]
+    #[doc(alias = "get_action_iface")]
+    fn action_iface(&self) -> Option<Action>;
 
     #[doc(alias = "atspi_accessible_get_application")]
     #[doc(alias = "get_application")]
@@ -49,10 +61,6 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "atspi_accessible_get_atspi_version")]
     #[doc(alias = "get_atspi_version")]
     fn atspi_version(&self) -> Result<glib::GString, glib::Error>;
-
-    //#[doc(alias = "atspi_accessible_get_attributes")]
-    //#[doc(alias = "get_attributes")]
-    //fn attributes(&self) -> Result</*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }, glib::Error>;
 
     //#[doc(alias = "atspi_accessible_get_attributes_as_array")]
     //#[doc(alias = "get_attributes_as_array")]
@@ -66,71 +74,71 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "get_child_count")]
     fn child_count(&self) -> Result<i32, glib::Error>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_collection")]
-    //#[doc(alias = "get_collection")]
-    //fn collection(&self) -> /*Ignored*/Option<Collection>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_collection")]
+    #[doc(alias = "get_collection")]
+    fn collection(&self) -> Option<Collection>;
 
-    //#[doc(alias = "atspi_accessible_get_collection_iface")]
-    //#[doc(alias = "get_collection_iface")]
-    //fn collection_iface(&self) -> /*Ignored*/Option<Collection>;
+    #[doc(alias = "atspi_accessible_get_collection_iface")]
+    #[doc(alias = "get_collection_iface")]
+    fn collection_iface(&self) -> Option<Collection>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_component")]
-    //#[doc(alias = "get_component")]
-    //fn component(&self) -> /*Ignored*/Option<Component>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_component")]
+    #[doc(alias = "get_component")]
+    fn component(&self) -> Option<Component>;
 
-    //#[doc(alias = "atspi_accessible_get_component_iface")]
-    //#[doc(alias = "get_component_iface")]
-    //fn component_iface(&self) -> /*Ignored*/Option<Component>;
+    #[doc(alias = "atspi_accessible_get_component_iface")]
+    #[doc(alias = "get_component_iface")]
+    fn component_iface(&self) -> Option<Component>;
 
     #[doc(alias = "atspi_accessible_get_description")]
     #[doc(alias = "get_description")]
     fn description(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_document")]
-    //#[doc(alias = "get_document")]
-    //fn document(&self) -> /*Ignored*/Option<Document>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_document")]
+    #[doc(alias = "get_document")]
+    fn document(&self) -> Option<Document>;
 
-    //#[doc(alias = "atspi_accessible_get_document_iface")]
-    //#[doc(alias = "get_document_iface")]
-    //fn document_iface(&self) -> /*Ignored*/Option<Document>;
+    #[doc(alias = "atspi_accessible_get_document_iface")]
+    #[doc(alias = "get_document_iface")]
+    fn document_iface(&self) -> Option<Document>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_editable_text")]
-    //#[doc(alias = "get_editable_text")]
-    //fn editable_text(&self) -> /*Ignored*/Option<EditableText>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_editable_text")]
+    #[doc(alias = "get_editable_text")]
+    fn editable_text(&self) -> Option<EditableText>;
 
-    //#[doc(alias = "atspi_accessible_get_editable_text_iface")]
-    //#[doc(alias = "get_editable_text_iface")]
-    //fn editable_text_iface(&self) -> /*Ignored*/Option<EditableText>;
+    #[doc(alias = "atspi_accessible_get_editable_text_iface")]
+    #[doc(alias = "get_editable_text_iface")]
+    fn editable_text_iface(&self) -> Option<EditableText>;
 
     //#[doc(alias = "atspi_accessible_get_hyperlink")]
     //#[doc(alias = "get_hyperlink")]
     //fn hyperlink(&self) -> /*Ignored*/Option<Hyperlink>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_hypertext")]
-    //#[doc(alias = "get_hypertext")]
-    //fn hypertext(&self) -> /*Ignored*/Option<Hypertext>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_hypertext")]
+    #[doc(alias = "get_hypertext")]
+    fn hypertext(&self) -> Option<Hypertext>;
 
-    //#[doc(alias = "atspi_accessible_get_hypertext_iface")]
-    //#[doc(alias = "get_hypertext_iface")]
-    //fn hypertext_iface(&self) -> /*Ignored*/Option<Hypertext>;
+    #[doc(alias = "atspi_accessible_get_hypertext_iface")]
+    #[doc(alias = "get_hypertext_iface")]
+    fn hypertext_iface(&self) -> Option<Hypertext>;
 
     #[doc(alias = "atspi_accessible_get_id")]
     #[doc(alias = "get_id")]
     fn id(&self) -> Result<i32, glib::Error>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_image")]
-    //#[doc(alias = "get_image")]
-    //fn image(&self) -> /*Ignored*/Option<Image>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_image")]
+    #[doc(alias = "get_image")]
+    fn image(&self) -> Option<Image>;
 
-    //#[doc(alias = "atspi_accessible_get_image_iface")]
-    //#[doc(alias = "get_image_iface")]
-    //fn image_iface(&self) -> /*Ignored*/Option<Image>;
+    #[doc(alias = "atspi_accessible_get_image_iface")]
+    #[doc(alias = "get_image_iface")]
+    fn image_iface(&self) -> Option<Image>;
 
     #[doc(alias = "atspi_accessible_get_index_in_parent")]
     #[doc(alias = "get_index_in_parent")]
@@ -172,40 +180,40 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "get_role_name")]
     fn role_name(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_selection")]
-    //#[doc(alias = "get_selection")]
-    //fn selection(&self) -> /*Ignored*/Option<Selection>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_selection")]
+    #[doc(alias = "get_selection")]
+    fn selection(&self) -> Option<Selection>;
 
-    //#[doc(alias = "atspi_accessible_get_selection_iface")]
-    //#[doc(alias = "get_selection_iface")]
-    //fn selection_iface(&self) -> /*Ignored*/Option<Selection>;
+    #[doc(alias = "atspi_accessible_get_selection_iface")]
+    #[doc(alias = "get_selection_iface")]
+    fn selection_iface(&self) -> Option<Selection>;
 
     //#[doc(alias = "atspi_accessible_get_state_set")]
     //#[doc(alias = "get_state_set")]
     //fn state_set(&self) -> /*Ignored*/Option<StateSet>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_table")]
-    //#[doc(alias = "get_table")]
-    //fn table(&self) -> /*Ignored*/Option<Table>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_table")]
+    #[doc(alias = "get_table")]
+    fn table(&self) -> Option<Table>;
 
-    //#[doc(alias = "atspi_accessible_get_table_cell")]
-    //#[doc(alias = "get_table_cell")]
-    //fn table_cell(&self) -> /*Ignored*/Option<TableCell>;
+    #[doc(alias = "atspi_accessible_get_table_cell")]
+    #[doc(alias = "get_table_cell")]
+    fn table_cell(&self) -> Option<TableCell>;
 
-    //#[doc(alias = "atspi_accessible_get_table_iface")]
-    //#[doc(alias = "get_table_iface")]
-    //fn table_iface(&self) -> /*Ignored*/Option<Table>;
+    #[doc(alias = "atspi_accessible_get_table_iface")]
+    #[doc(alias = "get_table_iface")]
+    fn table_iface(&self) -> Option<Table>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_text")]
-    //#[doc(alias = "get_text")]
-    //fn text(&self) -> /*Ignored*/Option<Text>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_text")]
+    #[doc(alias = "get_text")]
+    fn text(&self) -> Option<Text>;
 
-    //#[doc(alias = "atspi_accessible_get_text_iface")]
-    //#[doc(alias = "get_text_iface")]
-    //fn text_iface(&self) -> /*Ignored*/Option<Text>;
+    #[doc(alias = "atspi_accessible_get_text_iface")]
+    #[doc(alias = "get_text_iface")]
+    fn text_iface(&self) -> Option<Text>;
 
     #[doc(alias = "atspi_accessible_get_toolkit_name")]
     #[doc(alias = "get_toolkit_name")]
@@ -215,14 +223,14 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "get_toolkit_version")]
     fn toolkit_version(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
-    //#[doc(alias = "atspi_accessible_get_value")]
-    //#[doc(alias = "get_value")]
-    //fn value(&self) -> /*Ignored*/Option<Value>;
+    #[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
+    #[doc(alias = "atspi_accessible_get_value")]
+    #[doc(alias = "get_value")]
+    fn value(&self) -> Option<Value>;
 
-    //#[doc(alias = "atspi_accessible_get_value_iface")]
-    //#[doc(alias = "get_value_iface")]
-    //fn value_iface(&self) -> /*Ignored*/Option<Value>;
+    #[doc(alias = "atspi_accessible_get_value_iface")]
+    #[doc(alias = "get_value_iface")]
+    fn value_iface(&self) -> Option<Value>;
 
     //#[doc(alias = "atspi_accessible_set_cache_mask")]
     //fn set_cache_mask(&self, mask: /*Ignored*/Cache);
@@ -251,13 +259,17 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn action(&self) -> /*Ignored*/Option<Action> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_action() }
-    //}
+    fn action(&self) -> Option<Action> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_action(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn action_iface(&self) -> /*Ignored*/Option<Action> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_action_iface() }
-    //}
+    fn action_iface(&self) -> Option<Action> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_action_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
     fn application(&self) -> Result<Accessible, glib::Error> {
         unsafe {
@@ -274,10 +286,6 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
-
-    //fn attributes(&self) -> Result</*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }, glib::Error> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_attributes() }
-    //}
 
     //fn attributes_as_array(&self) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 0, id: 28 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_attributes_as_array() }
@@ -299,21 +307,29 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn collection(&self) -> /*Ignored*/Option<Collection> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_collection() }
-    //}
+    fn collection(&self) -> Option<Collection> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_collection(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn collection_iface(&self) -> /*Ignored*/Option<Collection> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_collection_iface() }
-    //}
+    fn collection_iface(&self) -> Option<Collection> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_collection_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn component(&self) -> /*Ignored*/Option<Component> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_component() }
-    //}
+    fn component(&self) -> Option<Component> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_component(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn component_iface(&self) -> /*Ignored*/Option<Component> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_component_iface() }
-    //}
+    fn component_iface(&self) -> Option<Component> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_component_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
     fn description(&self) -> Result<glib::GString, glib::Error> {
         unsafe {
@@ -323,33 +339,45 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn document(&self) -> /*Ignored*/Option<Document> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_document() }
-    //}
+    fn document(&self) -> Option<Document> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_document(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn document_iface(&self) -> /*Ignored*/Option<Document> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_document_iface() }
-    //}
+    fn document_iface(&self) -> Option<Document> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_document_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn editable_text(&self) -> /*Ignored*/Option<EditableText> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_editable_text() }
-    //}
+    fn editable_text(&self) -> Option<EditableText> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_editable_text(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn editable_text_iface(&self) -> /*Ignored*/Option<EditableText> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_editable_text_iface() }
-    //}
+    fn editable_text_iface(&self) -> Option<EditableText> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_editable_text_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
     //fn hyperlink(&self) -> /*Ignored*/Option<Hyperlink> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_hyperlink() }
     //}
 
-    //fn hypertext(&self) -> /*Ignored*/Option<Hypertext> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_hypertext() }
-    //}
+    fn hypertext(&self) -> Option<Hypertext> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_hypertext(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn hypertext_iface(&self) -> /*Ignored*/Option<Hypertext> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_hypertext_iface() }
-    //}
+    fn hypertext_iface(&self) -> Option<Hypertext> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_hypertext_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
     fn id(&self) -> Result<i32, glib::Error> {
         unsafe {
@@ -359,13 +387,17 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn image(&self) -> /*Ignored*/Option<Image> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_image() }
-    //}
+    fn image(&self) -> Option<Image> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_image(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn image_iface(&self) -> /*Ignored*/Option<Image> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_image_iface() }
-    //}
+    fn image_iface(&self) -> Option<Image> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_image_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
     fn index_in_parent(&self) -> Result<i32, glib::Error> {
         unsafe {
@@ -435,37 +467,51 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn selection(&self) -> /*Ignored*/Option<Selection> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_selection() }
-    //}
+    fn selection(&self) -> Option<Selection> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_selection(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn selection_iface(&self) -> /*Ignored*/Option<Selection> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_selection_iface() }
-    //}
+    fn selection_iface(&self) -> Option<Selection> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_selection_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
     //fn state_set(&self) -> /*Ignored*/Option<StateSet> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_state_set() }
     //}
 
-    //fn table(&self) -> /*Ignored*/Option<Table> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_table() }
-    //}
+    fn table(&self) -> Option<Table> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_table(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn table_cell(&self) -> /*Ignored*/Option<TableCell> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_table_cell() }
-    //}
+    fn table_cell(&self) -> Option<TableCell> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_table_cell(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn table_iface(&self) -> /*Ignored*/Option<Table> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_table_iface() }
-    //}
+    fn table_iface(&self) -> Option<Table> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_table_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn text(&self) -> /*Ignored*/Option<Text> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_text() }
-    //}
+    fn text(&self) -> Option<Text> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_text(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn text_iface(&self) -> /*Ignored*/Option<Text> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_text_iface() }
-    //}
+    fn text_iface(&self) -> Option<Text> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_text_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
     fn toolkit_name(&self) -> Result<glib::GString, glib::Error> {
         unsafe {
@@ -483,13 +529,17 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //fn value(&self) -> /*Ignored*/Option<Value> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_value() }
-    //}
+    fn value(&self) -> Option<Value> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_value(self.as_ref().to_glib_none().0))
+        }
+    }
 
-    //fn value_iface(&self) -> /*Ignored*/Option<Value> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_value_iface() }
-    //}
+    fn value_iface(&self) -> Option<Value> {
+        unsafe {
+            from_glib_full(ffi::atspi_accessible_get_value_iface(self.as_ref().to_glib_none().0))
+        }
+    }
 
     //fn set_cache_mask(&self, mask: /*Ignored*/Cache) {
     //    unsafe { TODO: call ffi:atspi_accessible_set_cache_mask() }

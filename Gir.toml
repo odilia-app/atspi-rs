@@ -11,6 +11,18 @@ generate_display_trait = true
 trust_return_value_nullability = false
 generate = [
 "Atspi.Accessible",
+"Atspi.Action",
+"Atspi.Collection",
+"Atspi.Component",
+"Atspi.Document",
+"Atspi.EditableText",
+"Atspi.Hypertext",
+"Atspi.Image",
+"Atspi.Selection",
+"Atspi.Table",
+"Atspi.TableCell",
+"Atspi.Text",
+"Atspi.Value",
 ]
 manual = [
 "GLib.Error",
