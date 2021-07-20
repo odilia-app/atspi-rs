@@ -10,6 +10,7 @@ use glib::translate::*;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use std::ptr;
 
 glib::wrapper! {
     #[doc(alias = "AtspiAccessible")]
@@ -26,11 +27,11 @@ pub trait AccessibleExt: 'static {
     #[doc(alias = "atspi_accessible_clear_cache")]
     fn clear_cache(&self);
 
-    //#[cfg(any(feature = "v2_34", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-    //#[doc(alias = "atspi_accessible_get_accessible_id")]
-    //#[doc(alias = "get_accessible_id")]
-    //fn accessible_id(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
+    #[doc(alias = "atspi_accessible_get_accessible_id")]
+    #[doc(alias = "get_accessible_id")]
+    fn accessible_id(&self) -> Result<glib::GString, glib::Error>;
 
     //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
     //#[doc(alias = "atspi_accessible_get_action")]
@@ -41,29 +42,29 @@ pub trait AccessibleExt: 'static {
     //#[doc(alias = "get_action_iface")]
     //fn action_iface(&self) -> /*Ignored*/Option<Action>;
 
-    //#[doc(alias = "atspi_accessible_get_application")]
-    //#[doc(alias = "get_application")]
-    //fn application(&self, error: /*Ignored*/Option<glib::Error>) -> Option<Accessible>;
+    #[doc(alias = "atspi_accessible_get_application")]
+    #[doc(alias = "get_application")]
+    fn application(&self) -> Result<Accessible, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_atspi_version")]
-    //#[doc(alias = "get_atspi_version")]
-    //fn atspi_version(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[doc(alias = "atspi_accessible_get_atspi_version")]
+    #[doc(alias = "get_atspi_version")]
+    fn atspi_version(&self) -> Result<glib::GString, glib::Error>;
 
     //#[doc(alias = "atspi_accessible_get_attributes")]
     //#[doc(alias = "get_attributes")]
-    //fn attributes(&self, error: /*Ignored*/Option<glib::Error>) -> /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 };
+    //fn attributes(&self) -> Result</*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }, glib::Error>;
 
     //#[doc(alias = "atspi_accessible_get_attributes_as_array")]
     //#[doc(alias = "get_attributes_as_array")]
-    //fn attributes_as_array(&self, error: /*Ignored*/Option<glib::Error>) -> /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 0, id: 28 };
+    //fn attributes_as_array(&self) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 0, id: 28 }, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_child_at_index")]
-    //#[doc(alias = "get_child_at_index")]
-    //fn child_at_index(&self, child_index: i32, error: /*Ignored*/Option<glib::Error>) -> Option<Accessible>;
+    #[doc(alias = "atspi_accessible_get_child_at_index")]
+    #[doc(alias = "get_child_at_index")]
+    fn child_at_index(&self, child_index: i32) -> Result<Accessible, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_child_count")]
-    //#[doc(alias = "get_child_count")]
-    //fn child_count(&self, error: /*Ignored*/Option<glib::Error>) -> i32;
+    #[doc(alias = "atspi_accessible_get_child_count")]
+    #[doc(alias = "get_child_count")]
+    fn child_count(&self) -> Result<i32, glib::Error>;
 
     //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
     //#[doc(alias = "atspi_accessible_get_collection")]
@@ -83,9 +84,9 @@ pub trait AccessibleExt: 'static {
     //#[doc(alias = "get_component_iface")]
     //fn component_iface(&self) -> /*Ignored*/Option<Component>;
 
-    //#[doc(alias = "atspi_accessible_get_description")]
-    //#[doc(alias = "get_description")]
-    //fn description(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[doc(alias = "atspi_accessible_get_description")]
+    #[doc(alias = "get_description")]
+    fn description(&self) -> Result<glib::GString, glib::Error>;
 
     //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
     //#[doc(alias = "atspi_accessible_get_document")]
@@ -118,9 +119,9 @@ pub trait AccessibleExt: 'static {
     //#[doc(alias = "get_hypertext_iface")]
     //fn hypertext_iface(&self) -> /*Ignored*/Option<Hypertext>;
 
-    //#[doc(alias = "atspi_accessible_get_id")]
-    //#[doc(alias = "get_id")]
-    //fn id(&self, error: /*Ignored*/Option<glib::Error>) -> i32;
+    #[doc(alias = "atspi_accessible_get_id")]
+    #[doc(alias = "get_id")]
+    fn id(&self) -> Result<i32, glib::Error>;
 
     //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
     //#[doc(alias = "atspi_accessible_get_image")]
@@ -131,45 +132,45 @@ pub trait AccessibleExt: 'static {
     //#[doc(alias = "get_image_iface")]
     //fn image_iface(&self) -> /*Ignored*/Option<Image>;
 
-    //#[doc(alias = "atspi_accessible_get_index_in_parent")]
-    //#[doc(alias = "get_index_in_parent")]
-    //fn index_in_parent(&self, error: /*Ignored*/Option<glib::Error>) -> i32;
+    #[doc(alias = "atspi_accessible_get_index_in_parent")]
+    #[doc(alias = "get_index_in_parent")]
+    fn index_in_parent(&self) -> Result<i32, glib::Error>;
 
     //#[doc(alias = "atspi_accessible_get_interfaces")]
     //#[doc(alias = "get_interfaces")]
     //fn interfaces(&self) -> /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 0, id: 28 };
 
-    //#[doc(alias = "atspi_accessible_get_localized_role_name")]
-    //#[doc(alias = "get_localized_role_name")]
-    //fn localized_role_name(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[doc(alias = "atspi_accessible_get_localized_role_name")]
+    #[doc(alias = "get_localized_role_name")]
+    fn localized_role_name(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_name")]
-    //#[doc(alias = "get_name")]
-    //fn name(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[doc(alias = "atspi_accessible_get_name")]
+    #[doc(alias = "get_name")]
+    fn name(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_object_locale")]
-    //#[doc(alias = "get_object_locale")]
-    //fn object_locale(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[doc(alias = "atspi_accessible_get_object_locale")]
+    #[doc(alias = "get_object_locale")]
+    fn object_locale(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_parent")]
-    //#[doc(alias = "get_parent")]
-    //fn parent(&self, error: /*Ignored*/Option<glib::Error>) -> Option<Accessible>;
+    #[doc(alias = "atspi_accessible_get_parent")]
+    #[doc(alias = "get_parent")]
+    fn parent(&self) -> Result<Option<Accessible>, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_process_id")]
-    //#[doc(alias = "get_process_id")]
-    //fn process_id(&self, error: /*Ignored*/Option<glib::Error>) -> u32;
+    #[doc(alias = "atspi_accessible_get_process_id")]
+    #[doc(alias = "get_process_id")]
+    fn process_id(&self) -> Result<(), glib::Error>;
 
     //#[doc(alias = "atspi_accessible_get_relation_set")]
     //#[doc(alias = "get_relation_set")]
-    //fn relation_set(&self, error: /*Ignored*/Option<glib::Error>) -> /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 19 };
+    //fn relation_set(&self) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 19 }, glib::Error>;
 
     //#[doc(alias = "atspi_accessible_get_role")]
     //#[doc(alias = "get_role")]
-    //fn role(&self, error: /*Ignored*/Option<glib::Error>) -> /*Ignored*/Role;
+    //fn role(&self) -> Result</*Ignored*/Role, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_role_name")]
-    //#[doc(alias = "get_role_name")]
-    //fn role_name(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[doc(alias = "atspi_accessible_get_role_name")]
+    #[doc(alias = "get_role_name")]
+    fn role_name(&self) -> Result<glib::GString, glib::Error>;
 
     //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
     //#[doc(alias = "atspi_accessible_get_selection")]
@@ -206,13 +207,13 @@ pub trait AccessibleExt: 'static {
     //#[doc(alias = "get_text_iface")]
     //fn text_iface(&self) -> /*Ignored*/Option<Text>;
 
-    //#[doc(alias = "atspi_accessible_get_toolkit_name")]
-    //#[doc(alias = "get_toolkit_name")]
-    //fn toolkit_name(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[doc(alias = "atspi_accessible_get_toolkit_name")]
+    #[doc(alias = "get_toolkit_name")]
+    fn toolkit_name(&self) -> Result<glib::GString, glib::Error>;
 
-    //#[doc(alias = "atspi_accessible_get_toolkit_version")]
-    //#[doc(alias = "get_toolkit_version")]
-    //fn toolkit_version(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString>;
+    #[doc(alias = "atspi_accessible_get_toolkit_version")]
+    #[doc(alias = "get_toolkit_version")]
+    fn toolkit_version(&self) -> Result<glib::GString, glib::Error>;
 
     //#[cfg_attr(feature = "v2_10", deprecated = "Since 2.10")]
     //#[doc(alias = "atspi_accessible_get_value")]
@@ -240,11 +241,15 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_34", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-    //fn accessible_id(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_accessible_id() }
-    //}
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
+    fn accessible_id(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_accessible_id(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     //fn action(&self) -> /*Ignored*/Option<Action> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_action() }
@@ -254,29 +259,45 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
     //    unsafe { TODO: call ffi:atspi_accessible_get_action_iface() }
     //}
 
-    //fn application(&self, error: /*Ignored*/Option<glib::Error>) -> Option<Accessible> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_application() }
-    //}
+    fn application(&self) -> Result<Accessible, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_application(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn atspi_version(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_atspi_version() }
-    //}
+    fn atspi_version(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_atspi_version(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn attributes(&self, error: /*Ignored*/Option<glib::Error>) -> /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 } {
+    //fn attributes(&self) -> Result</*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_attributes() }
     //}
 
-    //fn attributes_as_array(&self, error: /*Ignored*/Option<glib::Error>) -> /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 0, id: 28 } {
+    //fn attributes_as_array(&self) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 0, id: 28 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_attributes_as_array() }
     //}
 
-    //fn child_at_index(&self, child_index: i32, error: /*Ignored*/Option<glib::Error>) -> Option<Accessible> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_child_at_index() }
-    //}
+    fn child_at_index(&self, child_index: i32) -> Result<Accessible, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_child_at_index(self.as_ref().to_glib_none().0, child_index, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn child_count(&self, error: /*Ignored*/Option<glib::Error>) -> i32 {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_child_count() }
-    //}
+    fn child_count(&self) -> Result<i32, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_child_count(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     //fn collection(&self) -> /*Ignored*/Option<Collection> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_collection() }
@@ -294,9 +315,13 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
     //    unsafe { TODO: call ffi:atspi_accessible_get_component_iface() }
     //}
 
-    //fn description(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_description() }
-    //}
+    fn description(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_description(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     //fn document(&self) -> /*Ignored*/Option<Document> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_document() }
@@ -326,9 +351,13 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
     //    unsafe { TODO: call ffi:atspi_accessible_get_hypertext_iface() }
     //}
 
-    //fn id(&self, error: /*Ignored*/Option<glib::Error>) -> i32 {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_id() }
-    //}
+    fn id(&self) -> Result<i32, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_id(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     //fn image(&self) -> /*Ignored*/Option<Image> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_image() }
@@ -338,45 +367,73 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
     //    unsafe { TODO: call ffi:atspi_accessible_get_image_iface() }
     //}
 
-    //fn index_in_parent(&self, error: /*Ignored*/Option<glib::Error>) -> i32 {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_index_in_parent() }
-    //}
+    fn index_in_parent(&self) -> Result<i32, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_index_in_parent(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     //fn interfaces(&self) -> /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 0, id: 28 } {
     //    unsafe { TODO: call ffi:atspi_accessible_get_interfaces() }
     //}
 
-    //fn localized_role_name(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_localized_role_name() }
-    //}
+    fn localized_role_name(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_localized_role_name(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn name(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_name() }
-    //}
+    fn name(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_name(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn object_locale(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_object_locale() }
-    //}
+    fn object_locale(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_object_locale(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_none(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn parent(&self, error: /*Ignored*/Option<glib::Error>) -> Option<Accessible> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_parent() }
-    //}
+    fn parent(&self) -> Result<Option<Accessible>, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_parent(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn process_id(&self, error: /*Ignored*/Option<glib::Error>) -> u32 {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_process_id() }
-    //}
+    fn process_id(&self) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::atspi_accessible_get_process_id(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn relation_set(&self, error: /*Ignored*/Option<glib::Error>) -> /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 19 } {
+    //fn relation_set(&self) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 19 }, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_relation_set() }
     //}
 
-    //fn role(&self, error: /*Ignored*/Option<glib::Error>) -> /*Ignored*/Role {
+    //fn role(&self) -> Result</*Ignored*/Role, glib::Error> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_role() }
     //}
 
-    //fn role_name(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_role_name() }
-    //}
+    fn role_name(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_role_name(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     //fn selection(&self) -> /*Ignored*/Option<Selection> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_selection() }
@@ -410,13 +467,21 @@ impl<O: IsA<Accessible>> AccessibleExt for O {
     //    unsafe { TODO: call ffi:atspi_accessible_get_text_iface() }
     //}
 
-    //fn toolkit_name(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_toolkit_name() }
-    //}
+    fn toolkit_name(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_toolkit_name(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn toolkit_version(&self, error: /*Ignored*/Option<glib::Error>) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:atspi_accessible_get_toolkit_version() }
-    //}
+    fn toolkit_version(&self) -> Result<glib::GString, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::atspi_accessible_get_toolkit_version(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     //fn value(&self) -> /*Ignored*/Option<Value> {
     //    unsafe { TODO: call ffi:atspi_accessible_get_value() }

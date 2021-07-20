@@ -12,3 +12,6 @@ trust_return_value_nullability = false
 generate = [
 "Atspi.Accessible",
 ]
+manual = [
+"GLib.Error",
+]
