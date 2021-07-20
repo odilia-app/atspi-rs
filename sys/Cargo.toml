@@ -2,11 +2,44 @@
 name = "atspi-sys"
 version = "0.1.0"
 edition = "2018"
+build = "build.rs"
+[package.metadata.system-deps.atspi_2]
+name = "atspi-2"
+version = "0.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[package.metadata.system-deps.atspi_2.v2_9_90]
+version = "2.9.90"
+
+[package.metadata.system-deps.atspi_2.v2_10]
+version = "2.10"
+
+[package.metadata.system-deps.atspi_2.v2_34]
+version = "2.34"
+[package.metadata.docs.rs]
+features = ["dox"]
 
 [dependencies]
-glib-sys = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-gobject-sys = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-libc = "0.2.91"
-dbus = { package = "libdbus-sys", version = "0.2.1" }
+libc = "0.2"
+
+[dependencies.glib-sys]
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gobject-sys]
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.dbus]
+package = "libdbus-sys"
+version = "0.2.1"
+
+[build-dependencies]
+system-deps = "3"
+
+[dev-dependencies]
+shell-words = "1.0.0"
+tempfile = "3"
+
+[features]
+v2_9_90 = []
+v2_10 = ["v2_9_90"]
+v2_34 = ["v2_10"]
+dox = []
