@@ -6,3 +6,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+glib-sys = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+gobject-sys = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+libc = "0.2.91"
+dbus = { package = "libdbus-sys", version = "0.2.1" }
