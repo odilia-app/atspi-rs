@@ -1,3 +1,5 @@
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
+
 #[allow(unused_imports, dead_code)]
 mod auto;
 use auto::*;
