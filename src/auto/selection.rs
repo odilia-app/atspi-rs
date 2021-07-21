@@ -38,7 +38,7 @@ pub trait SelectionExt: 'static {
     fn selected_child(&self, selected_child_index: i32) -> Result<Accessible, glib::Error>;
 
     #[doc(alias = "atspi_selection_is_child_selected")]
-    fn is_child_selected(&self, child_index: i32) -> Result<(), glib::Error>;
+    fn is_child_selected(&self, child_index: i32) -> Result<bool, glib::Error>;
 
     #[doc(alias = "atspi_selection_select_all")]
     fn select_all(&self) -> Result<(), glib::Error>;
@@ -88,11 +88,11 @@ impl<O: IsA<Selection>> SelectionExt for O {
         }
     }
 
-    fn is_child_selected(&self, child_index: i32) -> Result<(), glib::Error> {
+    fn is_child_selected(&self, child_index: i32) -> Result<bool, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::atspi_selection_is_child_selected(self.as_ref().to_glib_none().0, child_index, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let ret = ffi::atspi_selection_is_child_selected(self.as_ref().to_glib_none().0, child_index, &mut error);
+            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 

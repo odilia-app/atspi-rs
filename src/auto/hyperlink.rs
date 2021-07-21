@@ -46,7 +46,7 @@ pub trait HyperlinkExt: 'static {
     fn uri(&self, i: i32) -> Result<glib::GString, glib::Error>;
 
     #[doc(alias = "atspi_hyperlink_is_valid")]
-    fn is_valid(&self) -> Result<(), glib::Error>;
+    fn is_valid(&self) -> Result<bool, glib::Error>;
 }
 
 impl<O: IsA<Hyperlink>> HyperlinkExt for O {
@@ -98,11 +98,11 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
         }
     }
 
-    fn is_valid(&self) -> Result<(), glib::Error> {
+    fn is_valid(&self) -> Result<bool, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::atspi_hyperlink_is_valid(self.as_ref().to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let ret = ffi::atspi_hyperlink_is_valid(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 }

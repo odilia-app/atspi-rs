@@ -37,7 +37,7 @@ pub trait CollectionExt: 'static {
     //fn matches_to<P: IsA<Accessible>, Q: IsA<MatchRule>>(&self, current_object: &P, rule: &Q, sortby: CollectionSortOrder, tree: CollectionTreeTraversalType, limit_scope: bool, count: i32, traverse: bool) -> Result</*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 17 }, glib::Error>;
 
     #[doc(alias = "atspi_collection_is_ancestor_of")]
-    fn is_ancestor_of<P: IsA<Accessible>>(&self, test: &P) -> Result<(), glib::Error>;
+    fn is_ancestor_of<P: IsA<Accessible>>(&self, test: &P) -> Result<bool, glib::Error>;
 }
 
 impl<O: IsA<Collection>> CollectionExt for O {
@@ -61,11 +61,11 @@ impl<O: IsA<Collection>> CollectionExt for O {
     //    unsafe { TODO: call ffi:atspi_collection_get_matches_to() }
     //}
 
-    fn is_ancestor_of<P: IsA<Accessible>>(&self, test: &P) -> Result<(), glib::Error> {
+    fn is_ancestor_of<P: IsA<Accessible>>(&self, test: &P) -> Result<bool, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::atspi_collection_is_ancestor_of(self.as_ref().to_glib_none().0, test.as_ref().to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let ret = ffi::atspi_collection_is_ancestor_of(self.as_ref().to_glib_none().0, test.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 }

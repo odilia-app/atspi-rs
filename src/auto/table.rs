@@ -104,13 +104,13 @@ pub trait TableExt: 'static {
     fn summary(&self) -> Result<Accessible, glib::Error>;
 
     #[doc(alias = "atspi_table_is_column_selected")]
-    fn is_column_selected(&self, column: i32) -> Result<(), glib::Error>;
+    fn is_column_selected(&self, column: i32) -> Result<bool, glib::Error>;
 
     #[doc(alias = "atspi_table_is_row_selected")]
-    fn is_row_selected(&self, row: i32) -> Result<(), glib::Error>;
+    fn is_row_selected(&self, row: i32) -> Result<bool, glib::Error>;
 
     #[doc(alias = "atspi_table_is_selected")]
-    fn is_selected(&self, row: i32, column: i32) -> Result<(), glib::Error>;
+    fn is_selected(&self, row: i32, column: i32) -> Result<bool, glib::Error>;
 
     #[doc(alias = "atspi_table_remove_column_selection")]
     fn remove_column_selection(&self, column: i32) -> Result<(), glib::Error>;
@@ -290,27 +290,27 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn is_column_selected(&self, column: i32) -> Result<(), glib::Error> {
+    fn is_column_selected(&self, column: i32) -> Result<bool, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::atspi_table_is_column_selected(self.as_ref().to_glib_none().0, column, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let ret = ffi::atspi_table_is_column_selected(self.as_ref().to_glib_none().0, column, &mut error);
+            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn is_row_selected(&self, row: i32) -> Result<(), glib::Error> {
+    fn is_row_selected(&self, row: i32) -> Result<bool, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::atspi_table_is_row_selected(self.as_ref().to_glib_none().0, row, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let ret = ffi::atspi_table_is_row_selected(self.as_ref().to_glib_none().0, row, &mut error);
+            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn is_selected(&self, row: i32, column: i32) -> Result<(), glib::Error> {
+    fn is_selected(&self, row: i32, column: i32) -> Result<bool, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::atspi_table_is_selected(self.as_ref().to_glib_none().0, row, column, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let ret = ffi::atspi_table_is_selected(self.as_ref().to_glib_none().0, row, column, &mut error);
+            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 

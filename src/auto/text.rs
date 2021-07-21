@@ -53,10 +53,6 @@ pub trait TextExt: 'static {
     #[doc(alias = "get_caret_offset")]
     fn caret_offset(&self) -> Result<i32, glib::Error>;
 
-    #[doc(alias = "atspi_text_get_character_at_offset")]
-    #[doc(alias = "get_character_at_offset")]
-    fn character_at_offset(&self, offset: i32) -> Result<(), glib::Error>;
-
     #[doc(alias = "atspi_text_get_character_count")]
     #[doc(alias = "get_character_count")]
     fn character_count(&self) -> Result<i32, glib::Error>;
@@ -166,14 +162,6 @@ impl<O: IsA<Text>> TextExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::atspi_text_get_caret_offset(self.as_ref().to_glib_none().0, &mut error);
             if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
-        }
-    }
-
-    fn character_at_offset(&self, offset: i32) -> Result<(), glib::Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let _ = ffi::atspi_text_get_character_at_offset(self.as_ref().to_glib_none().0, offset, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 

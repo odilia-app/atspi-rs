@@ -11,18 +11,12 @@ generate_display_trait = true
 trust_return_value_nullability = false
 generate = [
 "Atspi.Action",
-"Atspi.Collection",
-"Atspi.Component",
 "Atspi.Document",
 "Atspi.EditableText",
 "Atspi.Hypertext",
 "Atspi.Image",
-"Atspi.Selection",
-"Atspi.Table",
 "Atspi.TableCell",
-"Atspi.Text",
 "Atspi.Value",
-"Atspi.Hyperlink",
 "Atspi.Role",
 "Atspi.StateSet",
 "Atspi.StateType",
@@ -58,6 +52,61 @@ status = "generate"
 name = "Atspi.Accessible"
 status = "generate"
     [[object.function]]
-        name = "get_process_id"
+    name = "get_process_id"
         [object.function.return]
-    use_return_for_result = true
+        use_return_for_result = true
+
+[[object]]
+name = "Atspi.Collection"
+status = "generate"
+    [[object.function]]
+    name = "is_ancestor_of"
+        [object.function.return]
+        use_return_for_result = true
+
+[[object]]
+name = "Atspi.Component"
+status = "generate"
+    [[object.function]]
+    name = "contains"
+        [object.function.return]
+        use_return_for_result = true
+
+[[object]]
+name = "Atspi.Hyperlink"
+status = "generate"
+    [[object.function]]
+    name = "is_valid"
+        [object.function.return]
+        use_return_for_result = true
+
+[[object]]
+name = "Atspi.Selection"
+status = "generate"
+    [[object.function]]
+    name = "is_child_selected"
+        [object.function.return]
+        use_return_for_result = true
+
+[[object]]
+name = "Atspi.Table"
+status = "generate"
+    [[object.function]]
+    name = "is_column_selected"
+        [object.function.return]
+        use_return_for_result = true
+    [[object.function]]
+    name = "is_row_selected"
+        [object.function.return]
+        use_return_for_result = true
+    [[object.function]]
+    name = "is_selected"
+        [object.function.return]
+        use_return_for_result = true
+
+[[object]]
+name = "Atspi.Text"
+status = "generate"
+    [[object.function]]
+    name = "get_character_at_offset"
+    manual = true

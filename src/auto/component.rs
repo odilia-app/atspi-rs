@@ -26,7 +26,7 @@ pub const NONE_COMPONENT: Option<&Component> = None;
 
 pub trait ComponentExt: 'static {
     #[doc(alias = "atspi_component_contains")]
-    fn contains(&self, x: i32, y: i32, ctype: CoordType) -> Result<(), glib::Error>;
+    fn contains(&self, x: i32, y: i32, ctype: CoordType) -> Result<bool, glib::Error>;
 
     #[doc(alias = "atspi_component_get_accessible_at_point")]
     #[doc(alias = "get_accessible_at_point")]
@@ -76,11 +76,11 @@ pub trait ComponentExt: 'static {
 }
 
 impl<O: IsA<Component>> ComponentExt for O {
-    fn contains(&self, x: i32, y: i32, ctype: CoordType) -> Result<(), glib::Error> {
+    fn contains(&self, x: i32, y: i32, ctype: CoordType) -> Result<bool, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::atspi_component_contains(self.as_ref().to_glib_none().0, x, y, ctype.into_glib(), &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let ret = ffi::atspi_component_contains(self.as_ref().to_glib_none().0, x, y, ctype.into_glib(), &mut error);
+            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 

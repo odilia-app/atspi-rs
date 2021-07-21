@@ -10,6 +10,7 @@ pub mod accessible;
 
 pub mod prelude {
     pub use crate::auto::{traits::*, Accessible, Role};
+    pub use crate::text::TextExtManual;
 }
 
 pub mod action {
@@ -70,11 +71,7 @@ pub mod table {
     };
 }
 
-pub mod text {
-    pub use crate::auto::{
-        traits::TextExt, Text, TextBoundaryType, TextClipType, TextGranularity, TextRange,
-    };
-}
+pub mod text;
 
 pub mod value {
     pub use crate::auto::{traits::ValueExt, Value};
