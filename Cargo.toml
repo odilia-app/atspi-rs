@@ -12,6 +12,9 @@ v2_10 = ["ffi/v2_10"]
 v2_34 = ["ffi/v2_34"]
 dox = ["ffi/dox"]
 
+[package.metadata.docs.rs]
+features = ["dox"]
+
 [dependencies]
 bitflags = "1.2.1"
 ffi = { package = "atspi-sys", path = "sys" }
