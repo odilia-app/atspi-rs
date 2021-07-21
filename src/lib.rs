@@ -9,7 +9,7 @@ pub use desktop::*;
 pub mod accessible;
 
 pub mod prelude {
-    pub use crate::traits::*;
+    pub use crate::auto::{traits::*, Accessible, Role};
 }
 
 pub mod action {
