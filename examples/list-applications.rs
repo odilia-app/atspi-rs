@@ -1,4 +1,4 @@
-use atspi::traits::AccessibleExt;
+use atspi::accessible::AccessibleExt;
 
 fn main() {
     if let Err(e) = atspi::init() {

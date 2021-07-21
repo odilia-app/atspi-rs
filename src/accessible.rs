@@ -1,4 +1,4 @@
-use crate::{traits::AccessibleExt, Accessible};
+pub use crate::auto::{traits::AccessibleExt, Accessible};
 
 pub struct ChildIter<'a> {
     accessible: &'a Accessible,
