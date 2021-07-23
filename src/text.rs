@@ -7,6 +7,8 @@ pub use crate::auto::{
 };
 
 pub trait TextExtManual {
+    #[doc(alias = "atspi_text_get_character_at_offset")]
+    #[doc(alias = "get_character_at_offset")]
     fn character_at_offset(&self, offset: i32) -> Result<Option<char>, glib::Error>;
 }
 
