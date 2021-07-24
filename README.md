@@ -1,2 +1,3 @@
 # atspi-rs
-Gnome's at-spi (Assistive Technology Service Provider Interface) bindings for Rust.
+
+Rust bindings to the Assistive Technology Service Provider Interface library (libatspi).
