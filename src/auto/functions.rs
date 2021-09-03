@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use crate::Accessible;
+use crate::KeySynthType;
 use glib::object::IsA;
 use glib::translate::*;
 use std::ptr;
@@ -14,12 +15,12 @@ use std::ptr;
 //}
 
 //#[doc(alias = "atspi_deregister_device_event_listener")]
-//pub fn deregister_device_event_listener(listener: /*Ignored*/&DeviceListener, filter: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
+//pub fn deregister_device_event_listener<P: IsA<DeviceListener>>(listener: &P, filter: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
 //    unsafe { TODO: call ffi:atspi_deregister_device_event_listener() }
 //}
 
 //#[doc(alias = "atspi_deregister_keystroke_listener")]
-//pub fn deregister_keystroke_listener(listener: /*Ignored*/&DeviceListener, key_set: /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 52 }, modmask: KeyMaskType, event_types: KeyEventMask) -> Result<(), glib::Error> {
+//pub fn deregister_keystroke_listener<P: IsA<DeviceListener>>(listener: &P, key_set: /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 52 }, modmask: KeyMaskType, event_types: KeyEventMask) -> Result<(), glib::Error> {
 //    unsafe { TODO: call ffi:atspi_deregister_keystroke_listener() }
 //}
 
@@ -30,10 +31,14 @@ pub fn exit() -> i32 {
     }
 }
 
-//#[doc(alias = "atspi_generate_keyboard_event")]
-//pub fn generate_keyboard_event(keyval: libc::c_long, keystring: Option<&str>, synth_type: /*Ignored*/KeySynthType) -> Result<(), glib::Error> {
-//    unsafe { TODO: call ffi:atspi_generate_keyboard_event() }
-//}
+#[doc(alias = "atspi_generate_keyboard_event")]
+pub fn generate_keyboard_event(keyval: libc::c_long, keystring: Option<&str>, synth_type: KeySynthType) -> Result<(), glib::Error> {
+    unsafe {
+        let mut error = ptr::null_mut();
+        let _ = ffi::atspi_generate_keyboard_event(keyval, keystring.to_glib_none().0, synth_type.into_glib(), &mut error);
+        if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+    }
+}
 
 #[doc(alias = "atspi_generate_mouse_event")]
 pub fn generate_mouse_event(x: libc::c_long, y: libc::c_long, name: &str) -> Result<(), glib::Error> {
@@ -80,12 +85,12 @@ pub fn is_initialized() -> bool {
 }
 
 //#[doc(alias = "atspi_register_device_event_listener")]
-//pub fn register_device_event_listener(listener: /*Ignored*/&DeviceListener, event_types: DeviceEventMask, filter: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
+//pub fn register_device_event_listener<P: IsA<DeviceListener>>(listener: &P, event_types: DeviceEventMask, filter: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
 //    unsafe { TODO: call ffi:atspi_register_device_event_listener() }
 //}
 
 //#[doc(alias = "atspi_register_keystroke_listener")]
-//pub fn register_keystroke_listener(listener: /*Ignored*/&DeviceListener, key_set: /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 52 }, modmask: KeyMaskType, event_types: KeyEventMask, sync_type: /*Ignored*/KeyListenerSyncType) -> Result<(), glib::Error> {
+//pub fn register_keystroke_listener<P: IsA<DeviceListener>>(listener: &P, key_set: /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 52 }, modmask: KeyMaskType, event_types: KeyEventMask, sync_type: KeyListenerSyncType) -> Result<(), glib::Error> {
 //    unsafe { TODO: call ffi:atspi_register_keystroke_listener() }
 //}
 

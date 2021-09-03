@@ -11,6 +11,7 @@ use crate::EditableText;
 use crate::Hyperlink;
 use crate::Hypertext;
 use crate::Image;
+use crate::Object;
 use crate::Role;
 use crate::Selection;
 use crate::StateSet;
@@ -30,7 +31,7 @@ use std::ptr;
 
 glib::wrapper! {
     #[doc(alias = "AtspiAccessible")]
-    pub struct Accessible(Object<ffi::AtspiAccessible, ffi::AtspiAccessibleClass>) @implements Action, Collection, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value;
+    pub struct Accessible(Object<ffi::AtspiAccessible, ffi::AtspiAccessibleClass>) @extends Object, @implements Action, Collection, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value;
 
     match fn {
         type_ => || ffi::atspi_accessible_get_type(),

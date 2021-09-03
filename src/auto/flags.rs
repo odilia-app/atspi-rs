@@ -94,3 +94,71 @@ impl ToValue for Cache {
     }
 }
 
+bitflags! {
+    #[doc(alias = "AtspiKeyListenerSyncType")]
+    pub struct KeyListenerSyncType: u32 {
+        #[doc(alias = "ATSPI_KEYLISTENER_NOSYNC")]
+        const NOSYNC = ffi::ATSPI_KEYLISTENER_NOSYNC as u32;
+        #[doc(alias = "ATSPI_KEYLISTENER_SYNCHRONOUS")]
+        const SYNCHRONOUS = ffi::ATSPI_KEYLISTENER_SYNCHRONOUS as u32;
+        #[doc(alias = "ATSPI_KEYLISTENER_CANCONSUME")]
+        const CANCONSUME = ffi::ATSPI_KEYLISTENER_CANCONSUME as u32;
+        #[doc(alias = "ATSPI_KEYLISTENER_ALL_WINDOWS")]
+        const ALL_WINDOWS = ffi::ATSPI_KEYLISTENER_ALL_WINDOWS as u32;
+    }
+}
+
+impl fmt::Display for KeyListenerSyncType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for KeyListenerSyncType {
+    type GlibType = ffi::AtspiKeyListenerSyncType;
+
+    fn into_glib(self) -> ffi::AtspiKeyListenerSyncType {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiKeyListenerSyncType> for KeyListenerSyncType {
+    unsafe fn from_glib(value: ffi::AtspiKeyListenerSyncType) -> Self {
+        Self::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for KeyListenerSyncType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_key_listener_sync_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for KeyListenerSyncType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for KeyListenerSyncType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for KeyListenerSyncType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+

@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use crate::Accessible;
+use crate::Object;
 use crate::Range;
 use glib::object::IsA;
 use glib::translate::*;
@@ -11,7 +12,7 @@ use std::ptr;
 
 glib::wrapper! {
     #[doc(alias = "AtspiHyperlink")]
-    pub struct Hyperlink(Object<ffi::AtspiHyperlink, ffi::AtspiHyperlinkClass>);
+    pub struct Hyperlink(Object<ffi::AtspiHyperlink, ffi::AtspiHyperlinkClass>) @extends Object;
 
     match fn {
         type_ => || ffi::atspi_hyperlink_get_type(),

@@ -8,17 +8,26 @@ pub use self::accessible::{Accessible, NONE_ACCESSIBLE};
 mod action;
 pub use self::action::{Action, NONE_ACTION};
 
+mod application;
+pub use self::application::{Application, NONE_APPLICATION};
+
 mod collection;
 pub use self::collection::{Collection, NONE_COLLECTION};
 
 mod component;
 pub use self::component::{Component, NONE_COMPONENT};
 
+mod device_listener;
+pub use self::device_listener::{DeviceListener, NONE_DEVICE_LISTENER};
+
 mod document;
 pub use self::document::{Document, NONE_DOCUMENT};
 
 mod editable_text;
 pub use self::editable_text::{EditableText, NONE_EDITABLE_TEXT};
+
+mod event_listener;
+pub use self::event_listener::{EventListener, NONE_EVENT_LISTENER};
 
 mod hyperlink;
 pub use self::hyperlink::{Hyperlink, NONE_HYPERLINK};
@@ -31,6 +40,12 @@ pub use self::image::{Image, NONE_IMAGE};
 
 mod match_rule;
 pub use self::match_rule::{MatchRule, NONE_MATCH_RULE};
+
+mod object;
+pub use self::object::{Object, NONE_OBJECT};
+
+mod relation;
+pub use self::relation::{Relation, NONE_RELATION};
 
 mod selection;
 pub use self::selection::{Selection, NONE_SELECTION};
@@ -50,6 +65,15 @@ pub use self::text::{Text, NONE_TEXT};
 mod value;
 pub use self::value::{Value, NONE_VALUE};
 
+mod device_event;
+pub use self::device_event::DeviceEvent;
+
+mod event;
+pub use self::event::Event;
+
+mod key_definition;
+pub use self::key_definition::KeyDefinition;
+
 mod point;
 pub use self::point::Point;
 
@@ -68,6 +92,8 @@ pub use self::enums::CollectionSortOrder;
 pub use self::enums::CollectionTreeTraversalType;
 pub use self::enums::ComponentLayer;
 pub use self::enums::CoordType;
+pub use self::enums::KeySynthType;
+pub use self::enums::RelationType;
 pub use self::enums::Role;
 pub use self::enums::ScrollType;
 pub use self::enums::StateType;
@@ -77,6 +103,14 @@ pub use self::enums::TextGranularity;
 
 mod flags;
 pub use self::flags::Cache;
+pub use self::flags::KeyListenerSyncType;
+
+mod alias;
+pub use self::alias::ControllerEventMask;
+pub use self::alias::DeviceEventMask;
+pub use self::alias::KeyEventMask;
+pub use self::alias::KeyMaskType;
+pub use self::alias::KeystrokeListener;
 
 pub mod functions;
 
@@ -118,11 +152,14 @@ pub mod traits {
     pub use super::action::ActionExt;
     pub use super::collection::CollectionExt;
     pub use super::component::ComponentExt;
+    pub use super::device_listener::DeviceListenerExt;
     pub use super::document::DocumentExt;
     pub use super::editable_text::EditableTextExt;
+    pub use super::event_listener::EventListenerExt;
     pub use super::hyperlink::HyperlinkExt;
     pub use super::hypertext::HypertextExt;
     pub use super::image::ImageExt;
+    pub use super::relation::RelationExt;
     pub use super::selection::SelectionExt;
     pub use super::state_set::StateSetExt;
     pub use super::table::TableExt;

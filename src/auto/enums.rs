@@ -507,6 +507,299 @@ impl ToValue for CoordType {
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtspiKeySynthType")]
+pub enum KeySynthType {
+    #[doc(alias = "ATSPI_KEY_PRESS")]
+    Press,
+    #[doc(alias = "ATSPI_KEY_RELEASE")]
+    Release,
+    #[doc(alias = "ATSPI_KEY_PRESSRELEASE")]
+    Pressrelease,
+    #[doc(alias = "ATSPI_KEY_SYM")]
+    Sym,
+    #[doc(alias = "ATSPI_KEY_STRING")]
+    String,
+    #[doc(alias = "ATSPI_KEY_LOCKMODIFIERS")]
+    Lockmodifiers,
+    #[doc(alias = "ATSPI_KEY_UNLOCKMODIFIERS")]
+    Unlockmodifiers,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for KeySynthType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "KeySynthType::{}", match *self {
+            Self::Press => "Press",
+            Self::Release => "Release",
+            Self::Pressrelease => "Pressrelease",
+            Self::Sym => "Sym",
+            Self::String => "String",
+            Self::Lockmodifiers => "Lockmodifiers",
+            Self::Unlockmodifiers => "Unlockmodifiers",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for KeySynthType {
+    type GlibType = ffi::AtspiKeySynthType;
+
+    fn into_glib(self) -> ffi::AtspiKeySynthType {
+        match self {
+            Self::Press => ffi::ATSPI_KEY_PRESS,
+            Self::Release => ffi::ATSPI_KEY_RELEASE,
+            Self::Pressrelease => ffi::ATSPI_KEY_PRESSRELEASE,
+            Self::Sym => ffi::ATSPI_KEY_SYM,
+            Self::String => ffi::ATSPI_KEY_STRING,
+            Self::Lockmodifiers => ffi::ATSPI_KEY_LOCKMODIFIERS,
+            Self::Unlockmodifiers => ffi::ATSPI_KEY_UNLOCKMODIFIERS,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiKeySynthType> for KeySynthType {
+    unsafe fn from_glib(value: ffi::AtspiKeySynthType) -> Self {
+        match value {
+            ffi::ATSPI_KEY_PRESS => Self::Press,
+            ffi::ATSPI_KEY_RELEASE => Self::Release,
+            ffi::ATSPI_KEY_PRESSRELEASE => Self::Pressrelease,
+            ffi::ATSPI_KEY_SYM => Self::Sym,
+            ffi::ATSPI_KEY_STRING => Self::String,
+            ffi::ATSPI_KEY_LOCKMODIFIERS => Self::Lockmodifiers,
+            ffi::ATSPI_KEY_UNLOCKMODIFIERS => Self::Unlockmodifiers,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for KeySynthType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_key_synth_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for KeySynthType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for KeySynthType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for KeySynthType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtspiRelationType")]
+pub enum RelationType {
+    #[doc(alias = "ATSPI_RELATION_NULL")]
+    Null,
+    #[doc(alias = "ATSPI_RELATION_LABEL_FOR")]
+    LabelFor,
+    #[doc(alias = "ATSPI_RELATION_LABELLED_BY")]
+    LabelledBy,
+    #[doc(alias = "ATSPI_RELATION_CONTROLLER_FOR")]
+    ControllerFor,
+    #[doc(alias = "ATSPI_RELATION_CONTROLLED_BY")]
+    ControlledBy,
+    #[doc(alias = "ATSPI_RELATION_MEMBER_OF")]
+    MemberOf,
+    #[doc(alias = "ATSPI_RELATION_TOOLTIP_FOR")]
+    TooltipFor,
+    #[doc(alias = "ATSPI_RELATION_NODE_CHILD_OF")]
+    NodeChildOf,
+    #[doc(alias = "ATSPI_RELATION_NODE_PARENT_OF")]
+    NodeParentOf,
+    #[doc(alias = "ATSPI_RELATION_EXTENDED")]
+    Extended,
+    #[doc(alias = "ATSPI_RELATION_FLOWS_TO")]
+    FlowsTo,
+    #[doc(alias = "ATSPI_RELATION_FLOWS_FROM")]
+    FlowsFrom,
+    #[doc(alias = "ATSPI_RELATION_SUBWINDOW_OF")]
+    SubwindowOf,
+    #[doc(alias = "ATSPI_RELATION_EMBEDS")]
+    Embeds,
+    #[doc(alias = "ATSPI_RELATION_EMBEDDED_BY")]
+    EmbeddedBy,
+    #[doc(alias = "ATSPI_RELATION_POPUP_FOR")]
+    PopupFor,
+    #[doc(alias = "ATSPI_RELATION_PARENT_WINDOW_OF")]
+    ParentWindowOf,
+    #[doc(alias = "ATSPI_RELATION_DESCRIPTION_FOR")]
+    DescriptionFor,
+    #[doc(alias = "ATSPI_RELATION_DESCRIBED_BY")]
+    DescribedBy,
+    #[doc(alias = "ATSPI_RELATION_DETAILS")]
+    Details,
+    #[doc(alias = "ATSPI_RELATION_DETAILS_FOR")]
+    DetailsFor,
+    #[doc(alias = "ATSPI_RELATION_ERROR_MESSAGE")]
+    ErrorMessage,
+    #[doc(alias = "ATSPI_RELATION_ERROR_FOR")]
+    ErrorFor,
+    #[doc(alias = "ATSPI_RELATION_LAST_DEFINED")]
+    LastDefined,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for RelationType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "RelationType::{}", match *self {
+            Self::Null => "Null",
+            Self::LabelFor => "LabelFor",
+            Self::LabelledBy => "LabelledBy",
+            Self::ControllerFor => "ControllerFor",
+            Self::ControlledBy => "ControlledBy",
+            Self::MemberOf => "MemberOf",
+            Self::TooltipFor => "TooltipFor",
+            Self::NodeChildOf => "NodeChildOf",
+            Self::NodeParentOf => "NodeParentOf",
+            Self::Extended => "Extended",
+            Self::FlowsTo => "FlowsTo",
+            Self::FlowsFrom => "FlowsFrom",
+            Self::SubwindowOf => "SubwindowOf",
+            Self::Embeds => "Embeds",
+            Self::EmbeddedBy => "EmbeddedBy",
+            Self::PopupFor => "PopupFor",
+            Self::ParentWindowOf => "ParentWindowOf",
+            Self::DescriptionFor => "DescriptionFor",
+            Self::DescribedBy => "DescribedBy",
+            Self::Details => "Details",
+            Self::DetailsFor => "DetailsFor",
+            Self::ErrorMessage => "ErrorMessage",
+            Self::ErrorFor => "ErrorFor",
+            Self::LastDefined => "LastDefined",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for RelationType {
+    type GlibType = ffi::AtspiRelationType;
+
+    fn into_glib(self) -> ffi::AtspiRelationType {
+        match self {
+            Self::Null => ffi::ATSPI_RELATION_NULL,
+            Self::LabelFor => ffi::ATSPI_RELATION_LABEL_FOR,
+            Self::LabelledBy => ffi::ATSPI_RELATION_LABELLED_BY,
+            Self::ControllerFor => ffi::ATSPI_RELATION_CONTROLLER_FOR,
+            Self::ControlledBy => ffi::ATSPI_RELATION_CONTROLLED_BY,
+            Self::MemberOf => ffi::ATSPI_RELATION_MEMBER_OF,
+            Self::TooltipFor => ffi::ATSPI_RELATION_TOOLTIP_FOR,
+            Self::NodeChildOf => ffi::ATSPI_RELATION_NODE_CHILD_OF,
+            Self::NodeParentOf => ffi::ATSPI_RELATION_NODE_PARENT_OF,
+            Self::Extended => ffi::ATSPI_RELATION_EXTENDED,
+            Self::FlowsTo => ffi::ATSPI_RELATION_FLOWS_TO,
+            Self::FlowsFrom => ffi::ATSPI_RELATION_FLOWS_FROM,
+            Self::SubwindowOf => ffi::ATSPI_RELATION_SUBWINDOW_OF,
+            Self::Embeds => ffi::ATSPI_RELATION_EMBEDS,
+            Self::EmbeddedBy => ffi::ATSPI_RELATION_EMBEDDED_BY,
+            Self::PopupFor => ffi::ATSPI_RELATION_POPUP_FOR,
+            Self::ParentWindowOf => ffi::ATSPI_RELATION_PARENT_WINDOW_OF,
+            Self::DescriptionFor => ffi::ATSPI_RELATION_DESCRIPTION_FOR,
+            Self::DescribedBy => ffi::ATSPI_RELATION_DESCRIBED_BY,
+            Self::Details => ffi::ATSPI_RELATION_DETAILS,
+            Self::DetailsFor => ffi::ATSPI_RELATION_DETAILS_FOR,
+            Self::ErrorMessage => ffi::ATSPI_RELATION_ERROR_MESSAGE,
+            Self::ErrorFor => ffi::ATSPI_RELATION_ERROR_FOR,
+            Self::LastDefined => ffi::ATSPI_RELATION_LAST_DEFINED,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiRelationType> for RelationType {
+    unsafe fn from_glib(value: ffi::AtspiRelationType) -> Self {
+        match value {
+            ffi::ATSPI_RELATION_NULL => Self::Null,
+            ffi::ATSPI_RELATION_LABEL_FOR => Self::LabelFor,
+            ffi::ATSPI_RELATION_LABELLED_BY => Self::LabelledBy,
+            ffi::ATSPI_RELATION_CONTROLLER_FOR => Self::ControllerFor,
+            ffi::ATSPI_RELATION_CONTROLLED_BY => Self::ControlledBy,
+            ffi::ATSPI_RELATION_MEMBER_OF => Self::MemberOf,
+            ffi::ATSPI_RELATION_TOOLTIP_FOR => Self::TooltipFor,
+            ffi::ATSPI_RELATION_NODE_CHILD_OF => Self::NodeChildOf,
+            ffi::ATSPI_RELATION_NODE_PARENT_OF => Self::NodeParentOf,
+            ffi::ATSPI_RELATION_EXTENDED => Self::Extended,
+            ffi::ATSPI_RELATION_FLOWS_TO => Self::FlowsTo,
+            ffi::ATSPI_RELATION_FLOWS_FROM => Self::FlowsFrom,
+            ffi::ATSPI_RELATION_SUBWINDOW_OF => Self::SubwindowOf,
+            ffi::ATSPI_RELATION_EMBEDS => Self::Embeds,
+            ffi::ATSPI_RELATION_EMBEDDED_BY => Self::EmbeddedBy,
+            ffi::ATSPI_RELATION_POPUP_FOR => Self::PopupFor,
+            ffi::ATSPI_RELATION_PARENT_WINDOW_OF => Self::ParentWindowOf,
+            ffi::ATSPI_RELATION_DESCRIPTION_FOR => Self::DescriptionFor,
+            ffi::ATSPI_RELATION_DESCRIBED_BY => Self::DescribedBy,
+            ffi::ATSPI_RELATION_DETAILS => Self::Details,
+            ffi::ATSPI_RELATION_DETAILS_FOR => Self::DetailsFor,
+            ffi::ATSPI_RELATION_ERROR_MESSAGE => Self::ErrorMessage,
+            ffi::ATSPI_RELATION_ERROR_FOR => Self::ErrorFor,
+            ffi::ATSPI_RELATION_LAST_DEFINED => Self::LastDefined,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for RelationType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_relation_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for RelationType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for RelationType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for RelationType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
 #[doc(alias = "AtspiRole")]
 pub enum Role {
     #[doc(alias = "ATSPI_ROLE_INVALID")]
