@@ -30,13 +30,13 @@ pub trait StateSetExt: 'static {
     fn add(&self, state: StateType);
 
     #[doc(alias = "atspi_state_set_compare")]
-    fn compare<P: IsA<StateSet>>(&self, set2: &P) -> Option<StateSet>;
+    fn compare(&self, set2: &impl IsA<StateSet>) -> Option<StateSet>;
 
     #[doc(alias = "atspi_state_set_contains")]
     fn contains(&self, state: StateType) -> bool;
 
     #[doc(alias = "atspi_state_set_equals")]
-    fn equals<P: IsA<StateSet>>(&self, set2: &P) -> bool;
+    fn equals(&self, set2: &impl IsA<StateSet>) -> bool;
 
     //#[doc(alias = "atspi_state_set_get_states")]
     //#[doc(alias = "get_states")]
@@ -59,7 +59,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         }
     }
 
-    fn compare<P: IsA<StateSet>>(&self, set2: &P) -> Option<StateSet> {
+    fn compare(&self, set2: &impl IsA<StateSet>) -> Option<StateSet> {
         unsafe {
             from_glib_full(ffi::atspi_state_set_compare(self.as_ref().to_glib_none().0, set2.as_ref().to_glib_none().0))
         }
@@ -71,7 +71,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         }
     }
 
-    fn equals<P: IsA<StateSet>>(&self, set2: &P) -> bool {
+    fn equals(&self, set2: &impl IsA<StateSet>) -> bool {
         unsafe {
             from_glib(ffi::atspi_state_set_equals(self.as_ref().to_glib_none().0, set2.as_ref().to_glib_none().0))
         }

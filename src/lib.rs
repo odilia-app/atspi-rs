@@ -8,7 +8,11 @@ mod init;
 pub use init::*;
 mod desktop;
 pub use desktop::*;
+mod functions;
+pub use functions::*;
 pub mod accessible;
+
+pub use auto::KeyDefinition;
 
 pub mod prelude {
     pub use crate::auto::{traits::*, Accessible, Role};
@@ -32,6 +36,10 @@ pub mod component {
 
 pub mod document {
     pub use crate::auto::{traits::DocumentExt, Document};
+}
+
+pub mod events {
+    pub use crate::auto::DeviceListener;
 }
 
 pub mod editable_text {

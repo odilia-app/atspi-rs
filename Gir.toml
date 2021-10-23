@@ -70,6 +70,9 @@ status = "generate"
     [[object.function]]
     name = "init"
     manual = true
+    [[object.function]]
+    name = "register_keystroke_listener"
+    manual = true
 
 [[object]]
 name = "Atspi.Accessible"

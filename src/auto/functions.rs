@@ -15,12 +15,12 @@ use std::ptr;
 //}
 
 //#[doc(alias = "atspi_deregister_device_event_listener")]
-//pub fn deregister_device_event_listener<P: IsA<DeviceListener>>(listener: &P, filter: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
+//pub fn deregister_device_event_listener(listener: &impl IsA<DeviceListener>, filter: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
 //    unsafe { TODO: call ffi:atspi_deregister_device_event_listener() }
 //}
 
 //#[doc(alias = "atspi_deregister_keystroke_listener")]
-//pub fn deregister_keystroke_listener<P: IsA<DeviceListener>>(listener: &P, key_set: /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 52 }, modmask: KeyMaskType, event_types: KeyEventMask) -> Result<(), glib::Error> {
+//pub fn deregister_keystroke_listener(listener: &impl IsA<DeviceListener>, key_set: /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 52 }, modmask: KeyMaskType, event_types: KeyEventMask) -> Result<(), glib::Error> {
 //    unsafe { TODO: call ffi:atspi_deregister_keystroke_listener() }
 //}
 
@@ -85,13 +85,8 @@ pub fn is_initialized() -> bool {
 }
 
 //#[doc(alias = "atspi_register_device_event_listener")]
-//pub fn register_device_event_listener<P: IsA<DeviceListener>>(listener: &P, event_types: DeviceEventMask, filter: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
+//pub fn register_device_event_listener(listener: &impl IsA<DeviceListener>, event_types: DeviceEventMask, filter: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
 //    unsafe { TODO: call ffi:atspi_register_device_event_listener() }
-//}
-
-//#[doc(alias = "atspi_register_keystroke_listener")]
-//pub fn register_keystroke_listener<P: IsA<DeviceListener>>(listener: &P, key_set: /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 52 }, modmask: KeyMaskType, event_types: KeyEventMask, sync_type: KeyListenerSyncType) -> Result<(), glib::Error> {
-//    unsafe { TODO: call ffi:atspi_register_keystroke_listener() }
 //}
 
 //#[doc(alias = "atspi_set_main_context")]
@@ -100,7 +95,7 @@ pub fn is_initialized() -> bool {
 //}
 
 #[doc(alias = "atspi_set_reference_window")]
-pub fn set_reference_window<P: IsA<Accessible>>(accessible: &P) {
+pub fn set_reference_window(accessible: &impl IsA<Accessible>) {
     unsafe {
         ffi::atspi_set_reference_window(accessible.as_ref().to_glib_none().0);
     }
