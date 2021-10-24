@@ -11,6 +11,7 @@ pub use desktop::*;
 mod functions;
 pub use functions::*;
 pub mod accessible;
+pub mod events;
 
 pub use auto::KeyDefinition;
 
@@ -36,10 +37,6 @@ pub mod component {
 
 pub mod document {
     pub use crate::auto::{traits::DocumentExt, Document};
-}
-
-pub mod events {
-    pub use crate::auto::DeviceListener;
 }
 
 pub mod editable_text {
