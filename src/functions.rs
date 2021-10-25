@@ -9,7 +9,7 @@ use crate::{
 // ALL OF THIS IS A HACK FOR NOW! IT SHOULD WORK, BUT I WOULDN'T TRUST THE COMPILER NOT TO BREAK IT.
 
 #[doc(alias = "atspi_deregister_keystroke_listener")]
-pub fn deregister_keystroke_listener<P: IsA<DeviceListener>>(
+pub fn register_keystroke_listener<P: IsA<DeviceListener>>(
     listener: &P,
     key_set: Option<Vec<KeyDefinition>>,
     modmask: KeyMaskType,
