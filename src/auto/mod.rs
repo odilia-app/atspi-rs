@@ -92,6 +92,7 @@ pub use self::enums::CollectionSortOrder;
 pub use self::enums::CollectionTreeTraversalType;
 pub use self::enums::ComponentLayer;
 pub use self::enums::CoordType;
+pub use self::enums::EventType;
 pub use self::enums::KeySynthType;
 pub use self::enums::RelationType;
 pub use self::enums::Role;

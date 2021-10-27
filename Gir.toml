@@ -27,6 +27,7 @@ generate = [
     "Atspi.DeviceListenerSimpleCB",
 "Atspi.Document",
 "Atspi.Event",
+"Atspi.EventType",
 "Atspi.EditableText",
     "Atspi.EventListener",
     "Atspi.EventListenerCB",

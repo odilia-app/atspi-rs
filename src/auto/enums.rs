@@ -507,6 +507,95 @@ impl ToValue for CoordType {
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtspiEventType")]
+pub enum EventType {
+    #[doc(alias = "ATSPI_KEY_PRESSED_EVENT")]
+    KeyPressedEvent,
+    #[doc(alias = "ATSPI_KEY_RELEASED_EVENT")]
+    KeyReleasedEvent,
+    #[doc(alias = "ATSPI_BUTTON_PRESSED_EVENT")]
+    ButtonPressedEvent,
+    #[doc(alias = "ATSPI_BUTTON_RELEASED_EVENT")]
+    ButtonReleasedEvent,
+#[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for EventType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "EventType::{}", match *self {
+            Self::KeyPressedEvent => "KeyPressedEvent",
+            Self::KeyReleasedEvent => "KeyReleasedEvent",
+            Self::ButtonPressedEvent => "ButtonPressedEvent",
+            Self::ButtonReleasedEvent => "ButtonReleasedEvent",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for EventType {
+    type GlibType = ffi::AtspiEventType;
+
+    fn into_glib(self) -> ffi::AtspiEventType {
+        match self {
+            Self::KeyPressedEvent => ffi::ATSPI_KEY_PRESSED_EVENT,
+            Self::KeyReleasedEvent => ffi::ATSPI_KEY_RELEASED_EVENT,
+            Self::ButtonPressedEvent => ffi::ATSPI_BUTTON_PRESSED_EVENT,
+            Self::ButtonReleasedEvent => ffi::ATSPI_BUTTON_RELEASED_EVENT,
+            Self::__Unknown(value) => value,
+}
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtspiEventType> for EventType {
+    unsafe fn from_glib(value: ffi::AtspiEventType) -> Self {
+        match value {
+            ffi::ATSPI_KEY_PRESSED_EVENT => Self::KeyPressedEvent,
+            ffi::ATSPI_KEY_RELEASED_EVENT => Self::KeyReleasedEvent,
+            ffi::ATSPI_BUTTON_PRESSED_EVENT => Self::ButtonPressedEvent,
+            ffi::ATSPI_BUTTON_RELEASED_EVENT => Self::ButtonReleasedEvent,
+            value => Self::__Unknown(value),
+}
+    }
+}
+
+impl StaticType for EventType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atspi_event_type_get_type()) }
+    }
+}
+
+impl glib::value::ValueType for EventType {
+    type Type = Self;
+}
+
+unsafe impl<'a> FromValue<'a> for EventType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for EventType {
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+#[non_exhaustive]
 #[doc(alias = "AtspiKeySynthType")]
 pub enum KeySynthType {
     #[doc(alias = "ATSPI_KEY_PRESS")]

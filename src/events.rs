@@ -4,7 +4,7 @@ use glib::translate::*;
 
 use crate::accessible::Accessible;
 
-pub use crate::auto::{traits::EventListenerExt, DeviceListener, Event, EventListener};
+pub use crate::auto::{traits::EventListenerExt, DeviceListener, Event, EventListener, EventType};
 
 pub trait EventExt {
     fn detail1(&self) -> c_int;
